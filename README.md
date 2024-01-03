@@ -3,7 +3,7 @@
 
 ### GROUP NAME HERE
 
-Group Members Here
+Aareeb Jamil, Brian Chau, Jason Ng
        
 ### Project Description:
 
