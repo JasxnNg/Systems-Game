@@ -2,15 +2,15 @@
 
 ## Group Members:
 
-names here.
+Aareeb Jamil, Brian Chau, Jason Ng
        
 # Intentions:
 
-A statement of the problem you are solving and/or a high level description of the project.
+A rock paper scissor tournament of 12 players where the match log is recorded in a best of 1
     
 # Intended usage:
 
-A description as to how the project will be used (describe the user interface).
+A server hosts the main game with clients connecting to the server. The clients then type in either rock, paper or scissors and depending on the results, they move on, play again in a tie or the program exits. Then the winners of the game are rematched with each other until a winner of the whole tournament is decided.
   
 # Technical Details:
 
