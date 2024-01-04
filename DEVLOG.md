@@ -30,9 +30,9 @@ Continued on work with proposal
 Started working on the techinal details by adding in the topics we are going to use
 Worked on it for about 20 minutes
 Jason Ng: 2024-01-03 11:32 PM
-Reformatted devlog  
+Reformatted devlog  ~5 minutes 
 Jason Ng: 2024-01-04 2:32 PM 
-Created files 
+Created files + added networking.h + worked on makefile + started client.c ~30 minutes
 Brian Chau: 2024-01-04 2:36 PM 
 Modified our intended project usage and topics we added in
 Aareeb Jamil: 2024-01-04 2:45 PM
