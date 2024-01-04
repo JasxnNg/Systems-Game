@@ -6,7 +6,7 @@ Aareeb Jamil, Brian Chau, Jason Ng
 
 # Intentions:
 
-A rock paper scissor tournament of 12 players where the match log is recorded in a best of 1
+A file guessing tournament of 16 players where the match log is recorded in a best of 1
 
 # Intended usage:
 
@@ -23,6 +23,8 @@ Finding infomation about files - The server needs to determine the size of the f
 
 Networking - The server will connect the clients and organize them into 1v1 matches
 
+Division of Labor - Aareeb works on the game. Jason works on server forking and client management. Brian works on networking. 
+
 A description of your technical design. This should include:
 
 How you are breaking down the project and who is responsible for which parts.
@@ -33,4 +35,9 @@ What algorithms and /or data structures you will be using, and how.
 
 # Intended pacing:
 
-01/8 - Networking between two players and the server is functioning and the game can be completed
+01/08 - Networking between two players and the server is functioning
+01/10 - File guessing game between two players completed
+01/11 - Forking server completed
+01/12 - Client reassignment completed
+01/15 - Dynamic tournament sizing completed
+01/16 - Full program completed
