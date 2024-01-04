@@ -33,6 +33,6 @@ Jason Ng: 2024-01-03 11:32 PM
 Reformatted devlog  
 Jason Ng: 2024-01-04 2:32 PM 
 Created files 
-Brian Chau: 2024-01-03 2:31 PM 
-Modified our intended project and topics we added in
+Brian Chau: 2024-01-03 2:36 PM 
+Modified our intended project usage and topics we added in
 ```

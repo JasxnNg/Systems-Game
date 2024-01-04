@@ -21,6 +21,8 @@ Processes - The server will fork a bunch of subservers to actually manage the ga
 
 Finding infomation about files - The server needs to determine the size of the files being guessed
 
+Networking - The server will connect the clients and organize them into 1v1 matches
+
 A description of your technical design. This should include:
 
 How you are breaking down the project and who is responsible for which parts.
@@ -32,4 +34,3 @@ What algorithms and /or data structures you will be using, and how.
 # Intended pacing:
 
 01/8 - Networking between two players and the server is functioning and the game can be completed
-01/10
