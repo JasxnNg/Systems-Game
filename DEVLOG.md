@@ -32,7 +32,7 @@ Worked on it for about 20 minutes
 Jason Ng: 2024-01-03 11:32 PM
 Reformatted devlog  ~5 minutes 
 Jason Ng: 2024-01-04 2:32 PM 
-Created files + added networking.h + worked on makefile ~20 minutes
-Brian Chau: 2024-01-03 2:31 PM 
-Modified our intended project and topics we added in
+Created files + added networking.h + worked on makefile ~30 minutes
+Brian Chau: 2024-01-03 2:36 PM 
+Modified our intended project usage and topics we added in
 ```
