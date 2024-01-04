@@ -25,7 +25,7 @@ Brian Chau: 2024-01-03 2:49 PM
 Started working on proposal
 Added names of group members, our idea and how the user would use the program
 Worked on it with group members for roughly 30 minutes
-Brian Chau: 2024-01-03 ??:?? 
+Brian Chau: 2024-01-03 5:52 PM 
 Continued on work with proposal
 Started working on the techinal details by adding in the topics we are going to use
 Worked on it for about 20 minutes
