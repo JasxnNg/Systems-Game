@@ -31,4 +31,6 @@ Started working on the techinal details by adding in the topics we are going to 
 Worked on it for about 20 minutes
 Jason Ng: 2024-01-03 11:32 PM
 Reformatted devlog  
+Jason Ng: 2024-01-04 2:32 PM 
+Created files 
 ```
