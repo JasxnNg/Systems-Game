@@ -71,7 +71,6 @@ int server_setup()
   return clientd;
 }
 
-
 void err(int i, char *message)
 {
   if (i < 0)

@@ -1,5 +1,5 @@
 
-compile cli ser: networking.o client.o server.o 
+compile cli ser: networking.o client.o server.o
 	@gcc networking.o client.o -o cli
 	@gcc networking.o server.o game.o -o ser
 

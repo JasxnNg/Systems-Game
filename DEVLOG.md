@@ -39,4 +39,7 @@ Aareeb Jamil: 2024-01-04 2:45 PM
 Added intended pacing and division of labor
 Brian Chau: 2024-01-04 5:12 PM
 Copied over a bunch of the networking code from lab to be modified and added main to server
+Brian Chau: 2024-01-04 5:12 PM
+Made the server an array to hold all the connections and then put the connections into the array
+and gave the client the ability to connect to host
 ```
