@@ -44,4 +44,8 @@ Made the server an array to hold all the connections and then put the connection
 and gave the client the ability to connect to host
 Jason Ng: 2024-01-04 9:01 PM 
 worked on client-side logic for roughly 20 minutes 
+
+
+Jason Ng: 2024-01-05 2:05 PM 
+worked on adding usernames to client and adding logic to handle the game
 ```
