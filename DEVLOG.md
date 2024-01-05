@@ -46,4 +46,6 @@ Jason Ng: 2024-01-04 9:01 PM
 worked on client-side logic for roughly 20 minutes 
 Aareeb Jamil: 2024-01-05 06:23 AM
 worked on game.c overall structure (in the morning before school)
+Aareeb Jamil: 2024-01-05 06:30 AM
+wrote game.h with function headers, and defined struct fileinfo (in the morning before school) 
 ```
