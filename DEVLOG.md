@@ -53,4 +53,6 @@ Added some random files for the file size guessing game to a directory called ga
 Started working on randFile function
 Jason Ng: 2024-01-05 2:05 PM 
 worked on adding usernames to client and adding logic to handle the game
+Aareeb Jamil: 2024-01-05 02:47 PM
+Created a helper function to count the number of files in a directory. Haven't tested
 ```
