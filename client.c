@@ -2,7 +2,7 @@
 
 
 int server_handling (int server_socket) {
-    int flag = 1; 
+    int flag = 1; // this will be used to identify the winner 
     char * buff = malloc (sizeof(char) * BUFFER_SIZE); 
     // maybe add a struct here? 
     // this can help identify which one this is from? 
