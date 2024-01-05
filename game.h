@@ -19,5 +19,6 @@ struct fileinfo {
   char name[64];
 }
 struct fileinfo randFile();
+int retrieveNumber(int client1, int client2);
 int game(int client1, int client2);
 #endif
