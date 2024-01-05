@@ -7,6 +7,7 @@ cli: networking.o client.o game.o
 	@gcc networking.o client.o -o cli
 
 ser: networking.o client.o server.o
+	@gcc networking.o server.o game.o -o ser
 
 client: cli 
 	@./cli 
