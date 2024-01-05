@@ -5,13 +5,13 @@ struct fileinfo randFile() {
   // pick a random file and put its size and name in a struct fileinfo
 }
 
-int retrieveNumber(int client1, int client2){
+int retrieveNumber(struct clientDetails* client1, struct clientDetails* client2){
     fd_set read_fds;
     char buff[10];
     FD_ZERO(&read_fds);
     FD_SET(STDIN_FILENO, &read_fds);
-    FD_SET(client1, &read_fds);
-    FD_SET(client2, &read_fds);
+    FD_SET(client1 -> connection, &read_fds);
+    FD_SET(client2 -> connection, &read_fds);
     int number = 0;
     int i = select(client2 + 1, &read_fds, NULL, NULL, NULL);
     if(FD_ISSET(STDIN_FILENO, &read_fds)){
