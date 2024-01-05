@@ -1,4 +1,5 @@
 #include "networking.h"
+#include <pwd.h> 
 
 
 int server_handling (int server_socket) {
@@ -37,8 +38,24 @@ int main (int argc, char *argv[]) {
         IP = argv[1];
     }
 
-    int server_socket = client_tcp_handshake(IP);
+    // this is getting 
+    char * userName = malloc(sizeof (char) * BUFFER_SIZE); 
+    uid_t uid = geteuid(); 
+    struct passwd *pw = getpwuid(uid);
+    if (pw) {
+        strcpy (userName, pw->pw_name); 
+    }
+    else { // if we can't retrieve a username for this 
+        printf("enter a username: "); 
+        if (fgets(userName, BUFFER_SIZE, stdin)) {
+            printf("failed to fgets");
+            exit(1);  
+        } 
+        
+    }  
 
-    
+    //int server_socket = client_tcp_handshake(IP);
+    printf("user: %s", userName); 
+    free(userName);
 } 
 
