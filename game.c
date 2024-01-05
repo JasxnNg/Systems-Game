@@ -1,8 +1,11 @@
+#include "game.h"
 #include "networking.h"
 
 struct fileinfo randFile() {
   // helper function
   // pick a random file and put its size and name in a struct fileinfo
+  char dir[32] = "./gamefiles/";
+  
 }
 
 int game(int client1, int client2) {

@@ -14,7 +14,6 @@
 
 #ifndef GAME_H
 #define GAME_H
-
 struct fileinfo {
   int size;
   char name[64];

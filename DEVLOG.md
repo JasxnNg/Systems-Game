@@ -48,4 +48,7 @@ Aareeb Jamil: 2024-01-05 06:23 AM
 worked on game.c overall structure (in the morning before school)
 Aareeb Jamil: 2024-01-05 06:30 AM
 wrote game.h with function headers, and defined struct fileinfo (in the morning before school) 
+Aareeb Jamil: 2024-01-05 02:22 PM
+Added some random files for the file size guessing game to a directory called gamefiles
+Started working on randFile function
 ```
