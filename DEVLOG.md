@@ -53,7 +53,6 @@ Added some random files for the file size guessing game to a directory called ga
 Started working on randFile function
 Jason Ng: 2024-01-05 2:05 PM 
 worked on adding usernames to client and adding logic to handle the game
-wrote game.h with function headers, and defined struct fileinfo (in the morning before school)
 Brian Chau: 2024-01-06 2:33 PM
 Completed first version of the retrieveNumber function to get chosen number from the client but it is not tested
 ```
