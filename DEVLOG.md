@@ -50,4 +50,6 @@ Aareeb Jamil: 2024-01-05 06:30 AM
 wrote game.h with function headers, and defined struct fileinfo (in the morning before school)
 Brian Chau: 2024-01-06 2:33 PM
 Completed first version of the retrieveNumber function to get chosen number from the client but it is not tested
+Brian Chau: 2024-01-06 2:40 PM
+Made a struct to hold client data: identifier, guess, wins
 ```
