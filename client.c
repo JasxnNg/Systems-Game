@@ -8,8 +8,13 @@ int server_handling (int server_socket) {
     // maybe add a struct here? 
     // this can help identify which one this is from? 
     while (flag) { 
+
+        // we should probably make the read in a struct as well 
+        // this is to know when to stop and how to win
         printf("enter a number: "); 
         fgets(buff, BUFFER_SIZE, stdin);
+        buff = strsep(&buff, "\n"); 
+        // preprocess the buff
         // maybe add logic here to check whether or not this
         // part is the right input? 
         // should we have error checking to be local? 
@@ -38,7 +43,8 @@ int main (int argc, char *argv[]) {
         IP = argv[1];
     }
 
-    // this is getting 
+
+    // this is for getting your user  
     char * userName = malloc(sizeof (char) * BUFFER_SIZE); 
     uid_t uid = geteuid(); 
     struct passwd *pw = getpwuid(uid);
@@ -55,7 +61,11 @@ int main (int argc, char *argv[]) {
     }  
 
     //int server_socket = client_tcp_handshake(IP);
-    printf("user: %s", userName); 
+    printf("user: %s joined server successfully!\n", userName);
+
+    // add logic for everything here 
+    // server_handling (server_socket); 
+
     free(userName);
 } 
 
