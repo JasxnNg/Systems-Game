@@ -1,7 +1,7 @@
 
 compile: networking.o client.o server.o game.o
-	@gcc networking.o client.o -o cli
-	@gcc networking.o server.o game.o -o ser
+	@gcc -o cli networking.o client.o
+	@gcc -o ser networking.o server.o game.o
 
 cli: networking.o client.o game.o
 	@gcc networking.o client.o -o cli

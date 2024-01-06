@@ -22,5 +22,5 @@ int main(){
     printf("Waiting for first response\n");
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     responder = retrieveNumber(players[0], players[1]);
-    printf("Guess is %d\n", responder -> connection);
+    printf("Guess is %d\n", responder -> guess);
 }
