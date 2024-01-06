@@ -60,11 +60,11 @@ int main (int argc, char *argv[]) {
         
     }  
 
-    //int server_socket = client_tcp_handshake(IP);
+    int server_socket = client_tcp_handshake(IP);
     printf("user: %s joined server successfully!\n", userName);
 
     // add logic for everything here 
-    // server_handling (server_socket); 
+    server_handling (server_socket); 
 
     free(userName);
 } 
