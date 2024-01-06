@@ -1,19 +1,16 @@
-<<<<<<< HEAD
 #include "game.h"
 
 int countFiles(DIR* d) {
   int counter = 0;
   struct dirent* entry = readdir(d);
   while (entry != NULL) {
-    counter++;
+    if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
+      counter++;
+    }
     entry = readdir(d);
   }
   return counter;
 }
-=======
-#include "networking.h"
-#include "game.h"
->>>>>>> BrianChau
 
 struct fileinfo randFile() {
   // helper function
@@ -26,10 +23,9 @@ struct fileinfo randFile() {
   else {
     printf("%d files\n", countFiles(d));
   }
-
-  
 }
 
+/*
 int retrieveNumber(struct clientDetails* client1, struct clientDetails* client2){
     fd_set read_fds;
     char buff[10];
@@ -58,6 +54,7 @@ int retrieveNumber(struct clientDetails* client1, struct clientDetails* client2)
     }
     return number;
 }
+*/
 
 int game(int client1, int client2) {
   // runs a match between client1 and client2
