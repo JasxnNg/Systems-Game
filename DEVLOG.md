@@ -33,24 +33,21 @@ we wanted. I worked on this with my group for 30 minutes. At home I copied over 
 2025-01-05 Started work on a way to listen to multiple clients
 Spent the 40 minutes at school working on the first itieration of the retrieveNumber function which was a copy of the select demo with some changes to fit the project. Then I created a struct to be used to hold both the guess and client metadata to be able to determine which client was communicating. At home, I fixed the struct and then added the struct to the function and fixed all the compiling issues which took 20 minutes.
 
+Aareeb Jamil:
+
+2024-01-04 Edited proposal
+I added the intended pacing of our project and our planned division of labor to PROPOSAL.md
+
+2024-01-05 Writing helper functions for game.c
+In the morning (before school), I planned the overall structure of game.c by adding some function headers to game.c (and game.h). In class, I created a directory called gamefiles with some random files for our file size guessing game. I also started working on countFiles() and randFile(), which are helper functions in game.c. After school, I finished writing countFiles() and randFile(), and I tested them by creating a dummy main in game.c.
+
 Jason Ng: 2024-01-03 11:32 PM
 Reformatted devlog  ~5 minutes
 Jason Ng: 2024-01-04 2:32 PM
 Created files + added networking.h + worked on makefile + started client.c ~30 minutes
-Aareeb Jamil: 2024-01-04 2:45 PM
-Added intended pacing and division of labor
 and gave the client the ability to connect to host
 Jason Ng: 2024-01-04 9:01 PM
 worked on client-side logic for roughly 20 minutes
-Aareeb Jamil: 2024-01-05 06:23 AM
-worked on game.c overall structure (in the morning before school)
-Aareeb Jamil: 2024-01-05 06:30 AM
-wrote game.h with function headers, and defined struct fileinfo (in the morning before school)
-Aareeb Jamil: 2024-01-05 02:22 PM
-Added some random files for the file size guessing game to a directory called gamefiles
-Started working on randFile function
 Jason Ng: 2024-01-05 2:05 PM
 worked on adding usernames to client and adding logic to handle the game
-Aareeb Jamil: 2024-01-05 02:47 PM
-Created a helper function to count the number of files in a directory. Haven't tested
 ```

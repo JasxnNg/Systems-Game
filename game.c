@@ -1,6 +1,7 @@
 #include "game.h"
 
-int countFiles(DIR* d) {
+int countFiles(char* dir) {
+  DIR* d = opendir(dir);
   int counter = 0;
   struct dirent* entry = readdir(d);
   while (entry != NULL) {
@@ -9,19 +10,32 @@ int countFiles(DIR* d) {
     }
     entry = readdir(d);
   }
+  closedir(d);
   return counter;
 }
 
 struct fileinfo randFile() {
   // helper function
   // pick a random file and put its size and name in a struct fileinfo
-  char dir[32] = "./gamefiles/";
+  char dir[256] = "./gamefiles/";
   DIR* d = opendir(dir);
   if (d == NULL) {
     perror("error opening directory");
   }
   else {
-    printf("%d files\n", countFiles(d));
+    srand( time(NULL) );
+    struct dirent* entry = readdir(d);
+    for (int i = 0; i < abs(rand()) % countFiles(dir); i++) {
+      entry = readdir(d);
+    }
+    struct stat file;
+    strncat(dir, entry->d_name, 127);
+    if (stat(dir, &file) == -1) perror("error with struct stat");
+    struct fileinfo data;
+    data.size = file.st_size;
+    strncpy(data.name, entry->d_name, 127);
+    closedir(d);
+    return data;
   }
 }
 
@@ -63,12 +77,6 @@ int game(int client1, int client2) {
 }
 
 int main() {
-  char dir[32] = "./gamefiles/";
-  DIR* d = opendir(dir);
-  if (d == NULL) {
-    perror("error opening directory");
-  }
-  else {
-    printf("%d files\n", countFiles(d));
-  }
+  struct fileinfo data = randFile();
+  printf("%s has a size of %d bytes\n", data.name, data.size);
 }

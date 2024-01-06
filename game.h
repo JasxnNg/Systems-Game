@@ -10,7 +10,7 @@
 #define GAME_H
 struct fileinfo {
   int size;
-  char name[64];
+  char name[128];
 };
 struct clientDetails {
   int connection;
