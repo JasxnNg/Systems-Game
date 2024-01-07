@@ -53,13 +53,19 @@ struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clien
     int number = 0;
     int i = select(connection2 + 1, &read_fds, NULL, NULL, NULL);
     if(FD_ISSET(connection1, &read_fds)){
-        read(connection1, buff, sizeof(buff));
+        int readBytes = read(connection1, buff, sizeof(buff));
+        if(readBytes == 0){
+          return client2;
+        }
         sscanf(buff,"%d", &(client1 -> guess));
         printf("%d\n", client1 -> guess);
         return client1;
     }
     if(FD_ISSET(connection2, &read_fds)){
-        read(connection2, buff, sizeof(buff));
+        int readBytes = read(connection2, buff, sizeof(buff));
+        if(readBytes == 0){
+          return client1;
+        }
         printf("%s\n", buff);
         sscanf(buff,"%d", &(client2 -> guess));
         return client2;
