@@ -16,7 +16,11 @@ int server_handling (int server_socket) {
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
         int readBytes = read(server_socket, buff, BUFFER_SIZE);
+        err(readBytes, "could not read to the server socket"); 
         printf("%s", buff);
+        buff = "Ready";
+        int writeBytes = write(server_socket, buff, BUFFER_SIZE);
+        err(writeBytes, "could not write to the server socket"); 
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
 
@@ -36,12 +40,12 @@ int server_handling (int server_socket) {
         bytes = read(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not read the bytes"); 
         // probably check if less than or equal and then throw an error here if 0 bytes
-        sscanf(buff, "%d", &flag);  
+        sscanf(buff, "%d", flag);  
         //free(data); 
     }
     free(buff); 
 
-    return flag; 
+    return *flag; 
 
 } 
 
