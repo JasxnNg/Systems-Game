@@ -68,7 +68,7 @@ struct fileinfo randFile() {
 }
 
 
-struct clientInfo* retrieveNumber(struct clientInfo* client1, struct clientInfo* client2){
+struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2){
   //helper function
   //Gets the number value of a guess from either client
     fd_set read_fds;

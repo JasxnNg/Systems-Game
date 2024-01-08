@@ -24,7 +24,7 @@ int main(){
     int listen_socket = server_setup();
     while(!matchStarted || numOfPlayers >= maxPlayerCount){
         fd_set read_fds;
-        char buff[10];
+        char buff[20];
         printf("The current number of players is %d\n", numOfPlayers);
         printf("Type in start to start\n");
         FD_ZERO(&read_fds);
@@ -41,7 +41,8 @@ int main(){
         if(FD_ISSET(listen_socket, &read_fds)){
             playerConnections[i] = server_tcp_handshake(listen_socket);
             printf("%d, %d\n", i, playerConnections[i]);
-            players[i] = createClient(playerConnections[i]);
+            read(playerConnections[i], buff, sizeof(buff));
+            players[i] = createClient(playerConnections[i], buff);
             numOfPlayers++;
         }
     }
