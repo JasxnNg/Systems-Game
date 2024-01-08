@@ -67,39 +67,6 @@ struct fileinfo randFile() {
   }
 }
 
-
-struct clientInfo* retrieveNumber(struct clientInfo* client1, struct clientInfo* client2){
-  //helper function
-  //Gets the number value of a guess from either client
-    fd_set read_fds;
-    char buff[10];
-    int connection1 = client1 -> connection;
-    int connection2 = client2 -> connection;
-    FD_ZERO(&read_fds);
-    FD_SET(connection1, &read_fds);
-    FD_SET(connection2, &read_fds);
-    int number = 0;
-    int i = select(connection2 + 1, &read_fds, NULL, NULL, NULL);
-    if(FD_ISSET(connection1, &read_fds)){
-        int readBytes = read(connection1, buff, sizeof(buff));
-        if(readBytes == 0){
-          return client2;
-        }
-        sscanf(buff,"%d", &(client1 -> guess));
-        printf("%d\n", client1 -> guess);
-        return client1;
-    }
-    if(FD_ISSET(connection2, &read_fds)){
-        int readBytes = read(connection2, buff, sizeof(buff));
-        if(readBytes == 0){
-          return client1;
-        }
-        printf("%s\n", buff);
-        sscanf(buff,"%d", &(client2 -> guess));
-        return client2;
-    }
-}
-
 int game(int client1, int client2) {
   // runs a match between client1 and client2
   // requires the file descriptors for the two clients
