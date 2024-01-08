@@ -1,14 +1,19 @@
 #include "networking.h"
 #include "game.h"
+#include <sys/select.h> // needed for the retrieve files
 
-struct clientDetails* createClient(int connection){
+struct clientDetails* createClient(int connection, char * buff){
     struct clientDetails* p = malloc(sizeof(struct clientDetails));
     p -> connection = connection;
     p -> guess = 0;
     p -> wins = 0;
+    p -> name = buff; 
     return p;
 }
 
+int client_handling (int playerConnection) {
+
+}
 
 int main(){
     int matchStarted = 0;
