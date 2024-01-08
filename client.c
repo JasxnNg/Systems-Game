@@ -77,6 +77,10 @@ int main (int argc, char *argv[]) {
     // add logic for everything here 
     server_handling (server_socket); 
 
+    char data[256];
+    read(server_socket, data, 256);
+    printf("%s", data);
+
     free(userName);
 } 
 
