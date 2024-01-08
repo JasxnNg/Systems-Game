@@ -19,13 +19,13 @@
 #define GAME_H
 struct fileinfo {
   int size;
-  char name[128];
+  char name[NAME_SIZE];
 };
 struct clientDetails {
   int connection;
   int guess;
   int wins;
-  char * name; 
+  char name[NAME_SIZE]; 
 };
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);
