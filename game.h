@@ -17,13 +17,13 @@
 
 struct fileinfo {
   int size;
-  char name[64];
-}
-struct clientInfo {
+  char name[NAME_SIZE];
+};
+struct clientDetails {
   int guess;
   int wins;
   int connection;
-  char identifier[64];
+  char identifier[NAME_SIZE];
 }
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);
