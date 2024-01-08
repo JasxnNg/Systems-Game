@@ -36,7 +36,7 @@ struct clientDetails* createClient(int connection, char * buff){
     p -> connection = connection;
     p -> guess = 0;
     p -> wins = 0;
-    p -> name = buff; 
+    strcpy(p -> identifier, buff); 
     return p;
 }
 
@@ -54,7 +54,7 @@ int main(){
     int listen_socket = server_setup();
     while(!matchStarted || numOfPlayers >= maxPlayerCount){
         fd_set read_fds;
-        char buff[10];
+        char buff[20];
         printf("The current number of players is %d\n", numOfPlayers);
         printf("Type in start to start\n");
         FD_ZERO(&read_fds);
@@ -71,11 +71,16 @@ int main(){
         if(FD_ISSET(listen_socket, &read_fds)){
             playerConnections[i] = server_tcp_handshake(listen_socket);
             printf("%d, %d\n", i, playerConnections[i]);
-            players[i] = createClient(playerConnections[i]);
+            read(playerConnections[i], buff, sizeof(buff));
+            players[i] = createClient(playerConnections[i], buff);
             numOfPlayers++;
         }
     }
     printf("Waiting for first response\n");
+    for(int i = 0; i < numOfPlayers){
+        char startingMessage[20] = "The match is beginning get ready.\n";
+        write(playerConnection[i], startingMessage, sizeof(startingMessage));
+    }
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     responder = retrieveNumber(players[0], players[1]);
     printf("Guess is %d\n", responder -> guess);
