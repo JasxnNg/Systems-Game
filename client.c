@@ -56,7 +56,7 @@ int main (int argc, char *argv[]) {
 
 
     // this is for getting your user  
-    char * userName = malloc(sizeof (char) * BUFFER_SIZE); 
+    char * userName = malloc(sizeof (char) * NAME_SIZE); 
     uid_t uid = geteuid(); 
     struct passwd *pw = getpwuid(uid);
     if (pw) {
@@ -64,7 +64,7 @@ int main (int argc, char *argv[]) {
     }
     else { // if we can't retrieve a username for this 
         printf("enter a username: "); 
-        if (fgets(userName, BUFFER_SIZE, stdin)) {
+        if (fgets(userName, NAME_SIZE, stdin)) {
             printf("failed to fgets");
             exit(1);  
         } 
@@ -73,7 +73,7 @@ int main (int argc, char *argv[]) {
 
     int server_socket = client_tcp_handshake(IP);
     printf("user: %s joined server successfully!\n", userName);
-    int bytes = write(server_socket, userName, BUFFER_SIZE);  // write the user to the server
+    int bytes = write(server_socket, userName, NAME_SIZE);  // write the user to the server
     // add logic for everything here 
     server_handling (server_socket); 
 
