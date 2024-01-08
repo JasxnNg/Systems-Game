@@ -1,4 +1,5 @@
 #include "networking.h"
+#include "game.h"
 #include <pwd.h> 
 
 
@@ -11,6 +12,9 @@ int server_handling (int server_socket) {
 
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
+        struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
+        read(server_socket, data, sizeof (struct clientDetails)); 
+
         printf("enter a number: "); 
         fgets(buff, BUFFER_SIZE, stdin);
         buff = strsep(&buff, "\n"); 

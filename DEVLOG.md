@@ -41,13 +41,20 @@ I added the intended pacing of our project and our planned division of labor to 
 2024-01-05 Writing helper functions for game.c
 In the morning (before school), I planned the overall structure of game.c by adding some function headers to game.c (and game.h). In class, I created a directory called gamefiles with some random files for our file size guessing game. I also started working on countFiles() and randFile(), which are helper functions in game.c. After school, I finished writing countFiles() and randFile(), and I tested them by creating a dummy main in game.c.
 
-Jason Ng: 2024-01-03 11:32 PM
-Reformatted devlog  ~5 minutes
-Jason Ng: 2024-01-04 2:32 PM
-Created files + added networking.h + worked on makefile + started client.c ~30 minutes
-and gave the client the ability to connect to host
-Jason Ng: 2024-01-04 9:01 PM
-worked on client-side logic for roughly 20 minutes
-Jason Ng: 2024-01-05 2:05 PM
-worked on adding usernames to client and adding logic to handle the game
+Jason Ng: 
+
+2024-01-03 11:32 PM Reformatted devlog 
+Created this entire textbox for greater organization ~5 minutes 
+
+2024-01-04 2:32 PM Created files 
+Planned and created the structure of our project. Worked on making a skeleton for networking and added make commands to the make file. Worked on the input logic for client.c total time: ~30 minutes
+
+2024-01-04 9:01 PM Client logic
+Worked on client-side logic again (planning out client-server communication and how they will communicate); primarly worked on server_handling() function ~20 minutes
+
+2024-01-05 2:05 PM Client
+Worked on a way to distinguish clients between each other by adding usernames; added logic for communication with server; mostly in the main() function of the client program ~40 minutes
+
+2024-01-07 7:48 PM 
+
 ```

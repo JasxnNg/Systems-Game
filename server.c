@@ -11,7 +11,8 @@ struct clientDetails* createClient(int connection){
 
 
 int main(){
-    int playerConnections[2];
+    // start with two players ONLY
+    int playerConnections[2]; 
     struct clientDetails* players[2];
     int listen_socket = server_setup();
     for(int i = 0; i < 2; i++){
