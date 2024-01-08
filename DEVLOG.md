@@ -55,6 +55,7 @@ Worked on client-side logic again (planning out client-server communication and 
 2024-01-05 2:05 PM Client
 Worked on a way to distinguish clients between each other by adding usernames; added logic for communication with server; mostly in the main() function of the client program ~40 minutes
 
-2024-01-07 7:48 PM 
+2024-01-07 7:48 PM Client finished + Networking needs restructing 
+Finished client input logic; worked on debugging and testing; tested the server and client connection and realized we need to completely scrap our previous networking. Need to talk to Brian about this --- need to put the accept function into the server.c or else bad things will happen (error: connection reset by peer); also need to include <sys/select.h> for fd_set function ~1 hour 
 
 ```
