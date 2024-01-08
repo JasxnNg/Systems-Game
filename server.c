@@ -7,7 +7,7 @@ struct clientDetails* createClient(int connection, char * buff){
     p -> connection = connection;
     p -> guess = 0;
     p -> wins = 0;
-    p -> name = buff; 
+    strcpy(p -> identifier, buff); 
     return p;
 }
 
@@ -47,6 +47,10 @@ int main(){
         }
     }
     printf("Waiting for first response\n");
+    for(int i = 0; i < numOfPlayers){
+        char startingMessage[20] = "The match is beginning get ready.\n";
+        write(playerConnection[i], startingMessage, sizeof(startingMessage));
+    }
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     responder = retrieveNumber(players[0], players[1]);
     printf("Guess is %d\n", responder -> guess);
