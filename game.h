@@ -30,5 +30,5 @@ struct clientDetails {
 };
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);
-int game(int client1, int client2);
+struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2);
 #endif

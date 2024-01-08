@@ -75,7 +75,7 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
   struct fileinfo data = randFile();
   char msg[128] = "Guess the size of the following file: ";
-  strcat(msg, data->name);
+  strcat(msg, data.name);
   strcat(msg, "\n");
   write(client1->connection, msg, 64);
   write(client2->connection, msg, 64);
