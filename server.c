@@ -13,14 +13,17 @@ int chooseUser () {
     if (strcmp (buff, "yes") == 0 ){
         free(buff);
         return 1; 
+
     }
     else if (strcmp (buff, "no" == 0)){
         free(buff); 
         return 2; 
+
     }
     else {
         printf("please write yes or no"); 
         fflush(stdout);
+    
     }
 
     }
