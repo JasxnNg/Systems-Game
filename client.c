@@ -7,11 +7,12 @@
 // } 
 
 int server_handling (int server_socket) {
-    int flag = 1; // this will be used to identify the winner 
+    int * flag; // this will be used to identify the winner
+    (* flag) = 1;  
     char * buff = malloc (sizeof(char) * BUFFER_SIZE); 
     // maybe add a struct here? 
     // this can help identify which one this is from? 
-    while (flag) { 
+    while (* flag) { 
 
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win

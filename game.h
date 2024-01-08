@@ -19,7 +19,7 @@ struct fileinfo {
   int size;
   char name[64];
 }
-struct clientInfo {
+struct clientDetails {
   int guess;
   int wins;
   int connection;
