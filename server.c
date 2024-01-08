@@ -2,6 +2,32 @@
 #include "game.h"
 #include <sys/select.h> // needed for the retrieve files
 
+int chooseUser () {
+    char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
+    printf("do you want to use the default usernames? yes or no:");
+    fflush (stdout); 
+
+    while (1) {
+    fgets(buff, BUFFER_SIZE, stdin);
+    buff = strsep(&buff, "\n");
+    if (strcmp (buff, "yes") == 0 ){
+        free(buff);
+        return 1; 
+    }
+    else if (strcmp (buff, "no" == 0)){
+        free(buff); 
+        return 2; 
+    }
+    else {
+        printf("please write yes or no"); 
+        fflush(stdout);
+    }
+
+    }
+ 
+
+}
+
 struct clientDetails* createClient(int connection, char * buff){
     struct clientDetails* p = malloc(sizeof(struct clientDetails));
     p -> connection = connection;
@@ -16,6 +42,7 @@ int client_handling (int playerConnection) {
 }
 
 int main(){
+    int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
     int maxPlayerCount = 2;

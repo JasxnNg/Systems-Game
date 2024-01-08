@@ -58,4 +58,8 @@ Worked on a way to distinguish clients between each other by adding usernames; a
 2024-01-07 7:48 PM Client finished + Networking needs restructing 
 Finished client input logic; worked on debugging and testing; tested the server and client connection and realized we need to completely scrap our previous networking. Need to talk to Brian about this --- need to put the accept function into the server.c or else bad things will happen (error: connection reset by peer); also need to include <sys/select.h> for fd_set function ~1 hour 
 
+2024-01-08 2:10 PM Working on choosing usernames
+Wrote function chooseUser() in server.c and added communication between server and client... fixing a ton of merge conflicts
+
+
 ```
