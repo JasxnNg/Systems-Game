@@ -13,10 +13,10 @@ int server_handling (int server_socket) {
     // maybe add a struct here? 
     // this can help identify which one this is from? 
     while (* flag) { 
-
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
-
+        int readBytes = read(server_socket, buff, BUFFER_SIZE);
+        printf("%s", buff);
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
 
