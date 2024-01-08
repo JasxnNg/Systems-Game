@@ -11,20 +11,23 @@
 #include <sys/socket.h> 
 #include <time.h> 
 #include <netdb.h>
+#include <dirent.h>
 
 #ifndef GAME_H
 #define GAME_H
+#define NAME_SIZE 128
+
 
 struct fileinfo {
   int size;
-  char name[64];
-}
+  char name[NAME_SIZE];
+};
 struct clientDetails {
   int guess;
   int wins;
   int connection;
-  char identifier[64];
-}
+  char identifier[NAME_SIZE];
+};
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);
 int game(int client1, int client2);
