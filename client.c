@@ -2,6 +2,9 @@
 #include "game.h"
 #include <pwd.h> 
 
+// int fdError(int errInt, int size, ) {
+//     if (errInt )
+// } 
 
 int server_handling (int server_socket) {
     int flag = 1; // this will be used to identify the winner 
@@ -12,13 +15,15 @@ int server_handling (int server_socket) {
 
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
-        struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
-        read(server_socket, data, sizeof (struct clientDetails)); 
+
+        // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
+        // read(server_socket, data, sizeof (struct clientDetails)); 
 
         printf("enter a number: "); 
         fgets(buff, BUFFER_SIZE, stdin);
         buff = strsep(&buff, "\n"); 
         // preprocess the buff
+
         // maybe add logic here to check whether or not this
         // part is the right input? 
         // should we have error checking to be local? 
@@ -31,9 +36,10 @@ int server_handling (int server_socket) {
         err(bytes, "could not read the bytes"); 
         // probably check if less than or equal and then throw an error here if 0 bytes
         sscanf(buff, "%d", &flag);  
-        
+        //free(data); 
     }
     free(buff); 
+
     return flag; 
 
 } 
@@ -66,7 +72,7 @@ int main (int argc, char *argv[]) {
 
     int server_socket = client_tcp_handshake(IP);
     printf("user: %s joined server successfully!\n", userName);
-
+    int bytes = write(server_socket, userName, BUFFER_SIZE);  // write the user to the server
     // add logic for everything here 
     server_handling (server_socket); 
 

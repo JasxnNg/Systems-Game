@@ -25,6 +25,7 @@ struct clientDetails {
   int connection;
   int guess;
   int wins;
+  char * name; 
 };
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);

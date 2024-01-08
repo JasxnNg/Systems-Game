@@ -15,7 +15,7 @@ int client_tcp_handshake(char *server_address)
   err(serverd, "Line 17\n");
   // connect to the server
   int serverSocket = connect(serverd, results->ai_addr, results->ai_addrlen);
-  err(serverSocket, "Connecting to server");
+  err(serverSocket, "Server refused connection with client");
   free(hints);
   freeaddrinfo(results);
 
@@ -28,7 +28,7 @@ int client_tcp_handshake(char *server_address)
  */
 int server_tcp_handshake(int listen_socket)
 {
-  printf("Waiting for player\n");
+  // printf("Waiting for player\n");
   int client_socket;
   // accept the client connection
   int clientSocket;
@@ -36,7 +36,7 @@ int server_tcp_handshake(int listen_socket)
   struct sockaddr_storage client_address;
   sockSize = sizeof(client_address);
   client_socket = accept(listen_socket, (struct sockaddr *)&client_address, &sockSize);
-  err(client_socket, "Player is joining");
+  err(client_socket, "Client refused to accept connection");
   return client_socket;
 }
 

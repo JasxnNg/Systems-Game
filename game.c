@@ -72,7 +72,7 @@ int game(int client1, int client2) {
   // returns the file descriptor of the winner
 }
 
-int main() {
-  struct fileinfo data = randFile();
-  printf("%s has a size of %d bytes\n", data.name, data.size);
-}
+// int main() {
+//   struct fileinfo data = randFile();
+//   printf("%s has a size of %d bytes\n", data.name, data.size);
+// }
