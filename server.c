@@ -53,6 +53,16 @@ struct clientDetails* createClient(int connection, char * buff){
     return p;
 }
 
+int isPlaying(int playerConnection){
+    char* test = malloc(BUFFER_SIZE);
+    if(read(playerConnection, test, BUFFER_SIZE) == 0){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
     int playersInGame[2];
     playersInGame[0] = client1;
@@ -76,6 +86,7 @@ int main(){
     // int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
+    int playersJoined = 0;
     int maxPlayerCount = 2;
     int playerConnections[2];
     struct clientDetails* players[2];
@@ -117,6 +128,7 @@ int main(){
             printf("%s joined\n", buff ); 
 
             numOfPlayers++; // create the amount of numPlayers needed 
+            playersJoined++;
         }
 
     }
@@ -124,13 +136,20 @@ int main(){
     while(numOfPlayers > 1){
         int numberOfServers = numOfPlayers / 2;
         int playerPosInArray = 0;
-        struct clientDetails* alivePlayers[2];
+        struct clientDetails* alivePlayers[numOfPlayers];
+        alivePlayers = playersStillPlaying(players);
+        for(int i = 0; i < playersJoined; i++){
+            if(isPlaying(playerConnections[i])){
+                alivePlayers[playerPosInArray] = players[i];
+            }
+        }
         for(int i = 0; i < numberOfServers; i++){
             pid_t p = fork();
             if(p == 0){
-                client_handling()
+                client_handling(players[2*i], players[2*i + 1]);
             }
         }
+        numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
     }
 
     // for(int i = 0; i < numOfPlayers; i++){
