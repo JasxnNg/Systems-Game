@@ -127,7 +127,10 @@ int main(){
 
     // }
     printf("Starting Game\n");
-    printf("Waiting for first response\n");
+    printf("Waiting for first response\n"); 
+
+
+    // THIS CODE IS ALREADY IN GAME WHERE WE HAVE MALLOC AND STUFF HERE 
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     responder = retrieveNumber(players[0], players[1]);
     printf("Guess is %d\n", responder -> connection);
