@@ -43,8 +43,7 @@ Made a function to create structs based on the connections from clients to store
 Allowed the server to start a match whenever it wanted even if max number of players was not reached. Also continued working on retrieveNumber to fix some bugs. ~30 minutes
 
 2025-01-08 Completed work on starting match and couldn't fix bug with retrieveNumber
-I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent about an hour trying to solve a bug with retrieveNumber but could not fix it because the select is triggering early even if nothing is given. ~1 hour, 30 minutes
-
+I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~2 hour
 Aareeb Jamil:
 
 2024-01-04 Edited proposal
