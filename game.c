@@ -93,5 +93,4 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   printf("%s", msg);
   write(client1->connection, msg, 1024);
   write(client2->connection, msg, 1024);
-  printf("second time %s", msg);
 }

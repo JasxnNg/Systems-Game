@@ -53,6 +53,7 @@ I added the intended pacing of our project and our planned division of labor to 
 In the morning (before school), I planned the overall structure of game.c by adding some function headers to game.c (and game.h). In class, I created a directory called gamefiles with some random files for our file size guessing game. I also started working on countFiles() and randFile(), which are helper functions in game.c. After school, I finished writing countFiles() and randFile(), and I tested them by creating a dummy main in game.c.
 
 2023-01-08 Writing main game function
+In class, I worked on the structure of the main game function and used the retrieveNumber helper function that Brian wrote. At home, I tried testing but had issues on the networking side. Now that's fine but I need to make randFile() not produce "." and ".." as results
 
 Jason Ng:
 
