@@ -43,7 +43,7 @@ Made a function to create structs based on the connections from clients to store
 Allowed the server to start a match whenever it wanted even if max number of players was not reached. Also continued working on retrieveNumber to fix some bugs. ~30 minutes
 
 2025-01-08 Completed work on starting match and couldn't fix bug with retrieveNumber
-I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~2 hour
+I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~2 hours
 Aareeb Jamil:
 
 2024-01-04 Edited proposal
@@ -71,5 +71,11 @@ Worked on a way to distinguish clients between each other by adding usernames; a
 
 2024-01-07 7:48 PM Client finished + Networking needs restructing
 Finished client input logic; worked on debugging and testing; tested the server and client connection and realized we need to completely scrap our previous networking. Need to talk to Brian about this --- need to put the accept function into the server.c or else bad things will happen (error: connection reset by peer); also need to include <sys/select.h> for fd_set function ~1 hour
+
+2024-01-08 2:10 PM Working on choosing usernames
+Wrote function chooseUser() in server.c and added communication between server and client... fixing a ton of merge conflicts
+
+2024-01-08 8:35 PM Fixing bugs --- took way longer than necessary 
+Wrote a helper function for future use (numUsers); tried fixing bugs where the server and client could not communicate properly; TOOK WAYY TOO MUCH TIME ON THAT; ~1 hour (it's because we read in 256 bytes when reading in BUFFER_SIZE was the problem here). Will communicate with group about this
 
 ```
