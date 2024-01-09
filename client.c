@@ -19,16 +19,15 @@ int server_handling (int server_socket) {
         err(readBytes, "could not read to the server socket");
         printf("%s %d\n", buff, readBytes); 
 
+        char * data = malloc(sizeof(char) * BUFFER_SIZE);
+        bytes = read(server_socket, data, BUFFER_SIZE); 
+        if (bytes <= 0 ) {
+            perror("could not read\n");
+        }
+        printf("%s %d\n", data, bytes);
 
-        // printf("%s\n", buff);
-        // buff = "Ready";
-
-        readBytes = read (server_socket, buff, BUFFER_SIZE);
-        err(readBytes, "could not write to the server socket"); 
-        printf("%s %d\n", buff, readBytes); 
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
-
         printf("enter a number: "); 
         fgets(buff, BUFFER_SIZE, stdin);
         buff = strsep(&buff, "\n"); 
@@ -89,7 +88,7 @@ int main (int argc, char *argv[]) {
     int bytes = write(server_socket, userName, NAME_SIZE);  // write the user to the server
     err(bytes, "could not write the bytes to the server socket"); 
     // add logic for everything here 
-    // server_handling (server_socket); 
+    server_handling (server_socket); 
 
     char * data = malloc(sizeof(char) * BUFFER_SIZE);
     bytes = read(server_socket, data, BUFFER_SIZE); 

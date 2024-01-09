@@ -54,6 +54,15 @@ struct clientDetails* createClient(int connection, char * buff){
 }
 
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
+    int playersInGame[2];
+    playersInGame[0] = client1;
+    playersInGame[1] = client2;
+    for(int i = 0; i < 2; i++){
+        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+        int writeBytes = write(playersInGame[1], startingMessage, BUFFER_SIZE);
+        err(writeBytes, "could not write to client socket"); 
+        printf("%d\n", writeBytes);
+    }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
     if(winner -> connection == client1 -> connection){
@@ -112,24 +121,16 @@ int main(){
 
     }
     printf("The current number of players is %d\n", numOfPlayers);
-     for(int i = 0; i < numOfPlayers; i++){
+    for(int i = 0; i < numOfPlayers; i++){
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
         int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
         err(writeBytes, "could not write to client socket"); 
         printf("%d\n", writeBytes);
-     }
-    // for(int i = 0; i < numOfPlayers; i++){
-    //     char confirmMessage[BUFFER_SIZE];
-    //     int readBytes = read(playerConnections[i], confirmMessage, BUFFER_SIZE);
-    //     printf("Confirmation: %s, bytes read: %d, player num: %d, player connection: %d\n", confirmMessage, readBytes, i, playerConnections[i]);
-    //     err(readBytes, "could not read from the client socket"); 
-        
-
-    // }
+    }
     printf("Starting Game\n");
     printf("Waiting for first response\n");
-    struct clientDetails* responder = malloc(sizeof(struct clientDetails));
-    responder = retrieveNumber(players[0], players[1]);
+    // struct clientDetails* responder = malloc(sizeof(struct clientDetails));
+    // responder = retrieveNumber(players[0], players[1]);
     printf("Guess is %d\n", responder -> connection);
     game(players[0], players[1]);
 }
