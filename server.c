@@ -64,12 +64,12 @@ int isPlaying(int playerConnection){
 }
 
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
-    int playersInGame[2];
+    struct clientDetails* playersInGame[2];
     playersInGame[0] = client1;
     playersInGame[1] = client2;
     for(int i = 0; i < 2; i++){
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
-        int writeBytes = write(playersInGame[1], startingMessage, BUFFER_SIZE);
+        int writeBytes = write(playersInGame[i] -> connection, startingMessage, BUFFER_SIZE);
         err(writeBytes, "could not write to client socket"); 
         printf("%d\n", writeBytes);
     }
@@ -128,25 +128,29 @@ int main(){
             printf("%s joined\n", buff ); 
 
             numOfPlayers++; // create the amount of numPlayers needed 
-            playersJoined++;
         }
 
     }
     printf("The current number of players is %d\n", numOfPlayers);
+    playersJoined = numOfPlayers;
     while(numOfPlayers > 1){
         int numberOfServers = numOfPlayers / 2;
         int playerPosInArray = 0;
         struct clientDetails* alivePlayers[numOfPlayers];
-        alivePlayers = playersStillPlaying(players);
+        printf("Completed step 1\n");
+        printf("Working on finding alive players\n");
         for(int i = 0; i < playersJoined; i++){
             if(isPlaying(playerConnections[i])){
+                printf("Player is still connnected\n");
                 alivePlayers[playerPosInArray] = players[i];
+                playerPosInArray++;
             }
         }
+        printf("Completed step 2\n");
         for(int i = 0; i < numberOfServers; i++){
             pid_t p = fork();
             if(p == 0){
-                client_handling(players[2*i], players[2*i + 1]);
+                client_handling(alivePlayers[2*i], alivePlayers[2*i + 1]);
             }
         }
         numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;

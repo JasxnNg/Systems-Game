@@ -15,9 +15,13 @@ int server_handling (int server_socket) {
     while ( flag) {
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
-        int readBytes = read(server_socket, buff, BUFFER_SIZE);
-        err(readBytes, "could not read to the server socket");
-        printf("%s %d\n", buff, readBytes); 
+        buff = "Still alive and well";
+        int bytes = write(server_socket, buff, BUFFER_SIZE);
+        err(bytes, "could not write to the server socket");
+
+        bytes = read(server_socket, buff, BUFFER_SIZE);
+        err(bytes, "could not read to the server socket");
+        printf("%s %d\n", buff, bytes); 
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
         bytes = read(server_socket, data, BUFFER_SIZE); 
@@ -38,7 +42,7 @@ int server_handling (int server_socket) {
         // should we have error checking to be local? 
 
         // it would be cool to have a help command here! 
-        int bytes = write(server_socket, buff, BUFFER_SIZE); 
+        bytes = write(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not write to the server socket"); 
 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
