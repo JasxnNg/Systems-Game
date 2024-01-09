@@ -64,14 +64,17 @@ int isPlaying(int playerConnection){
 }
 
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
-    struct clientDetails* playersInGame[2];
-    playersInGame[0] = client1;
-    playersInGame[1] = client2;
+    printf("Sending message to start game\n");
     for(int i = 0; i < 2; i++){
+        int writeBytes;
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
-        int writeBytes = write(playersInGame[i] -> connection, startingMessage, BUFFER_SIZE);
+        if(i == 0){
+            writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
+        }
+        if(i == 1){
+            writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
+        }
         err(writeBytes, "could not write to client socket"); 
-        printf("%d\n", writeBytes);
     }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
@@ -88,6 +91,7 @@ int main(){
     int numOfPlayers = 0;
     int playersJoined = 0;
     int maxPlayerCount = 2;
+    pid_t p;
     int playerConnections[2];
     struct clientDetails* players[2];
     int listen_socket = server_setup();
@@ -148,10 +152,16 @@ int main(){
         }
         printf("Completed step 2\n");
         for(int i = 0; i < numberOfServers; i++){
-            pid_t p = fork();
+            p = fork();
             if(p == 0){
-                client_handling(alivePlayers[2*i], alivePlayers[2*i + 1]);
+                printf("Starting game as the subserver\n");
+                client_handling(alivePlayers[0], alivePlayers[1]);
+                exit(0);
             }
+        }
+        if(p != 0){
+            int status;
+            wait(&status);
         }
         numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
     }
