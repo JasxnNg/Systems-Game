@@ -1,10 +1,11 @@
 #include "game.h"
+#include "networking.h"
 
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2){
   //helper function
   //Gets the number value of a guess from either client
     fd_set read_fds;
-    char buff[10];
+    char buff[BUFFER_SIZE];
     int connection1 = client1 -> connection;
     int connection2 = client2 -> connection;
     FD_ZERO(&read_fds);

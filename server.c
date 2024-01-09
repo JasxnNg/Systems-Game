@@ -52,13 +52,13 @@ int main(){
     }
     printf("The current number of players is %d\n", numOfPlayers);
     for(int i = 0; i < numOfPlayers; i++){
-        char startingMessage[NAME_SIZE] = "The match is beginning get ready.";
-        int writeBytes = write(playerConnections[i], &startingMessage, NAME_SIZE);
+        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+        int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
         printf("%d\n", writeBytes);
     }
     for(int i = 0; i < numOfPlayers; i++){
-        char confirmMessage[NAME_SIZE];
-        int readBytes = read(playerConnections[i], &confirmMessage, NAME_SIZE);
+        char confirmMessage[BUFFER_SIZE];
+        int readBytes = read(playerConnections[i], confirmMessage, BUFFER_SIZE);
         printf("Confirmation: %s, bytes read: %d\n", confirmMessage, readBytes);
         err(readBytes, "could not read from the client socket"); 
     }
