@@ -90,6 +90,7 @@ int main(){
         if(FD_ISSET(listen_socket, &read_fds)){
             playerConnections[numOfPlayers] = server_tcp_handshake(listen_socket);
             int readBytes = read(playerConnections[numOfPlayers], buff, sizeof(buff));
+            err(readBytes, "could not create the connection"); 
             players[numOfPlayers] = createClient(playerConnections[numOfPlayers], buff);
             printf("%d, %d\n", numOfPlayers, playerConnections[numOfPlayers]);
             numOfPlayers++;
@@ -105,7 +106,7 @@ int main(){
     for(int i = 0; i < numOfPlayers; i++){
         char confirmMessage[BUFFER_SIZE];
         int readBytes = read(playerConnections[i], confirmMessage, BUFFER_SIZE);
-        printf("Confirmation: %s, bytes read: %d, player num: %d\n", confirmMessage, readBytes, i);
+        printf("Confirmation: %s, bytes read: %d, player num: %d, player connection: %d\n", confirmMessage, readBytes, i, playerConnections[i]);
         err(readBytes, "could not read from the client socket"); 
         
 
