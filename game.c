@@ -93,8 +93,3 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   write(client1->connection, msg, 64);
   write(client2->connection, msg, 64);
 }
-
-// int main() {
-//   struct fileinfo data = randFile();
-//   printf("%s has a size of %d bytes\n", data.name, data.size);
-// }
