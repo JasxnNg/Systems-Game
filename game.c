@@ -46,9 +46,7 @@ int countFiles(char* dir) {
   int counter = 0;
   struct dirent* entry = readdir(d);
   while (entry != NULL) {
-    if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
-      counter++;
-    }
+    counter++;
     entry = readdir(d);
   }
   closedir(d);
@@ -85,8 +83,11 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   // runs a match between client1 and client2
   // requires the file descriptors for the two clients
   // returns the file descriptor of the winner
-
-  struct fileinfo data = randFile();
+  
+  struct fileinfo data = randFile()
+  while (strcmp(data.name, ".") == 0 || strcmp(data.name, ".") == 0) {
+    data = randFile();
+  }
   char msg[1024] = "Guess the size of the following file: ";
   strcat(msg, data.name);
   strcat(msg, "\n");
