@@ -46,9 +46,7 @@ int countFiles(char* dir) {
   int counter = 0;
   struct dirent* entry = readdir(d);
   while (entry != NULL) {
-    if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
-      counter++;
-    }
+    counter++;
     entry = readdir(d);
   }
   closedir(d);
@@ -86,11 +84,34 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   // requires the file descriptors for the two clients
   // returns the file descriptor of the winner
 
+  // CASE WHERE THEY ARE TIED IS IMPORTANT
+
+
   struct fileinfo data = randFile();
-  char msg[1024] = "Guess the size of the following file: ";
-  strcat(msg, data.name);
-  strcat(msg, "\n");
-  printf("%s", msg);
-  write(client1->connection, msg, 1024);
-  write(client2->connection, msg, 1024);
+  while (strcmp(data.name, ".") == 0 || strcmp(data.name, ".") == 0) {
+    data = randFile();
+  }
+  int fileSize = data.size; 
+  char * msg = malloc(sizeof (char) * BUFFER_SIZE);
+  sprintf(msg, "%s %s \n", "Guess the size of the following file: ", data.name); 
+  write(client1->connection, msg, BUFFER_SIZE);
+  write(client2->connection, msg, BUFFER_SIZE);
+
+  struct clientDetails * firstGuess = retrieveNumber(client1, client2); 
+  struct clientDetails * secondGuess = retrieveNumber(client1, client2); 
+
+  int guess1 = abs(fileSize - firstGuess->guess); 
+  int guess2 = abs(fileSize - firstGuess->guess); 
+
+  free(msg); 
+  /*
+  if (guess1  < guess2) {
+    return firstGuess; 
+  }
+  else 
+    return secondGuess; 
+  }*/  
+
 }
+
+// fork should handle each game but main server should handle the distribution of code 
