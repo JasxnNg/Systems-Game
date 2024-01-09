@@ -108,13 +108,14 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   int guess2 = abs(fileSize - firstGuess->guess); 
 
   free(msg); 
-  
+
   if (guess1  < guess2) {
-    return guess1; 
+    return firstGuess; 
   }
+  else 
+    return secondGuess; 
+    
 
-
-  free(msg); 
 }
 
 // fork should handle each game but main server should handle the distribution of code 

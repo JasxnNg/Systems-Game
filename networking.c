@@ -81,10 +81,3 @@ void err(int i, char *message)
     exit(1);
   }
 }
-
-void checkConnection (int i, int server_socket ) {
-  if (i < = 0 ) { // should be 0 
-    close(server_socket); 
-    
-  }
-}
