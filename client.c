@@ -17,11 +17,15 @@ int server_handling (int server_socket) {
         // this is to know when to stop and how to win
         int readBytes = read(server_socket, buff, BUFFER_SIZE);
         err(readBytes, "could not read to the server socket");
-        printf("%s\n", buff);
-        buff = "Ready";
-        
-        int writeBytes = (server_socket, buff, BUFFER_SIZE);
-        err(writeBytes, "could not write to the server socket"); 
+        printf("%s %d\n", buff, readBytes); 
+
+
+        // printf("%s\n", buff);
+        // buff = "Ready";
+
+        readBytes = read (server_socket, buff, BUFFER_SIZE);
+        err(readBytes, "could not write to the server socket"); 
+        printf("%s %d\n", buff, readBytes); 
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
 
@@ -83,12 +87,16 @@ int main (int argc, char *argv[]) {
     int server_socket = client_tcp_handshake(IP);
     printf("user: %s joined server successfully!\n", userName);
     int bytes = write(server_socket, userName, NAME_SIZE);  // write the user to the server
+    err(bytes, "could not write the bytes to the server socket"); 
     // add logic for everything here 
-    //server_handling (server_socket); 
+    // server_handling (server_socket); 
 
-    char data[256];
-    read(server_socket, data, 256);
-    printf("%s", data);
+    char * data = malloc(sizeof(char) * BUFFER_SIZE);
+    bytes = read(server_socket, data, BUFFER_SIZE); 
+    if (bytes <= 0 ) {
+        perror("could not read\n");
+    }
+    printf("%s %d\n", data, bytes);
 
     free(userName);
 } 

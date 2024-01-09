@@ -75,11 +75,14 @@ int main(){
         fd_set read_fds;
         char buff[BUFFER_SIZE];
         printf("The current number of players is %d\n", numOfPlayers);
+
+
         printf("Type in start to start\n");
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(listen_socket, &read_fds);
         int j = select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
+        
         if (FD_ISSET(STDIN_FILENO, &read_fds)) {
             fgets(buff, sizeof(buff), stdin);
             buff[strlen(buff)-1]=0;
@@ -87,30 +90,42 @@ int main(){
                 matchStarted = 1;
             }
         }
+
         if(FD_ISSET(listen_socket, &read_fds)){
+
             playerConnections[numOfPlayers] = server_tcp_handshake(listen_socket);
             int readBytes = read(playerConnections[numOfPlayers], buff, sizeof(buff));
-            err(readBytes, "could not create the connection"); 
+            if (readBytes <= 0) {
+                perror("could not create the connection\n"); 
+            }
+            // err(readBytes, "could not create the connection"); 
+
+
             players[numOfPlayers] = createClient(playerConnections[numOfPlayers], buff);
-            printf("%d, %d\n", numOfPlayers, playerConnections[numOfPlayers]);
-            numOfPlayers++;
+            
+            //COMMENT THIS OUT AFTERWARD
+            printf("%d, %d\n", numOfPlayers, playerConnections[numOfPlayers]); 
+            printf("%s joined\n", buff ); 
+
+            numOfPlayers++; // create the amount of numPlayers needed 
         }
+
     }
     printf("The current number of players is %d\n", numOfPlayers);
-    for(int i = 0; i < numOfPlayers; i++){
+     for(int i = 0; i < numOfPlayers; i++){
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
         int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
         err(writeBytes, "could not write to client socket"); 
-        // printf("%d\n", writeBytes);
-    }
-    for(int i = 0; i < numOfPlayers; i++){
-        char confirmMessage[BUFFER_SIZE];
-        int readBytes = read(playerConnections[i], confirmMessage, BUFFER_SIZE);
-        printf("Confirmation: %s, bytes read: %d, player num: %d, player connection: %d\n", confirmMessage, readBytes, i, playerConnections[i]);
-        err(readBytes, "could not read from the client socket"); 
+        printf("%d\n", writeBytes);
+     }
+    // for(int i = 0; i < numOfPlayers; i++){
+    //     char confirmMessage[BUFFER_SIZE];
+    //     int readBytes = read(playerConnections[i], confirmMessage, BUFFER_SIZE);
+    //     printf("Confirmation: %s, bytes read: %d, player num: %d, player connection: %d\n", confirmMessage, readBytes, i, playerConnections[i]);
+    //     err(readBytes, "could not read from the client socket"); 
         
 
-    }
+    // }
     printf("Starting Game\n");
     printf("Waiting for first response\n");
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
