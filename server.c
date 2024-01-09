@@ -51,7 +51,7 @@ int main(){
         }
     }
     printf("The current number of players is %d\n", numOfPlayers);
-    /*for(int i = 0; i < numOfPlayers; i++){
+    for(int i = 0; i < numOfPlayers; i++){
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
         int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
         printf("%d\n", writeBytes);
@@ -63,7 +63,7 @@ int main(){
         err(readBytes, "could not read from the client socket"); 
     }*/
     printf("Starting Game\n");
-    /*printf("Waiting for first response\n");
+    printf("Waiting for first response\n");
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     responder = retrieveNumber(players[0], players[1]);
     printf("Guess is %d\n", responder -> connection);*/
