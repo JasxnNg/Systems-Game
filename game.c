@@ -1,26 +1,39 @@
 #include "game.h"
+#include "networking.h"
 
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2){
   //helper function
   //Gets the number value of a guess from either client
     fd_set read_fds;
-    char buff[10];
+    char buff[BUFFER_SIZE];
     int connection1 = client1 -> connection;
     int connection2 = client2 -> connection;
     FD_ZERO(&read_fds);
     FD_SET(connection1, &read_fds);
     FD_SET(connection2, &read_fds);
-    printf("test\n"); 
     int number = 0;
-    int i = select(connection2 + 1, &read_fds, NULL, NULL, NULL);
+    int largestConnection = 0;
+    if(connection1 > connection2){
+      largestConnection = connection1;
+    } else{
+      largestConnection = connection2;
+    }
+    int i = select(largestConnection + 1, &read_fds, NULL, NULL, NULL);
     if(FD_ISSET(connection1, &read_fds)){
-        read(connection1, buff, sizeof(buff));
+        int readBytes = read(connection1, buff, sizeof(buff));
+        if(readBytes == 0){
+          return client2;
+        }
+        printf("%d\n", readBytes);
         sscanf(buff,"%d", &(client1 -> guess));
         printf("%d\n", client1 -> guess);
         return client1;
     }
     if(FD_ISSET(connection2, &read_fds)){
-        read(connection2, buff, sizeof(buff));
+        int readBytes = read(connection2, buff, sizeof(buff));
+        if(readBytes == 0){
+          return client1;
+        }
         printf("%s\n", buff);
         sscanf(buff,"%d", &(client2 -> guess));
         return client2;
@@ -67,13 +80,18 @@ struct fileinfo randFile() {
   }
 }
 
-int game(int client1, int client2) {
+
+struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
   // runs a match between client1 and client2
   // requires the file descriptors for the two clients
   // returns the file descriptor of the winner
-}
 
-// int main() {
-//   struct fileinfo data = randFile();
-//   printf("%s has a size of %d bytes\n", data.name, data.size);
-// }
+  struct fileinfo data = randFile();
+  char msg[1024] = "Guess the size of the following file: ";
+  strcat(msg, data.name);
+  strcat(msg, "\n");
+  printf("%s", msg);
+  write(client1->connection, msg, 1024);
+  write(client2->connection, msg, 1024);
+  printf("second time %s", msg);
+}
