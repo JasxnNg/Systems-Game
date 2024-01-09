@@ -80,7 +80,7 @@ int main(){
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(listen_socket, &read_fds);
         int j = select(listen_socket + 1, &read_fds, NULL, NULL, NULL);
-        if(FD_ISSET(STDIN_FILENO, &read_fds)){
+        if (FD_ISSET(STDIN_FILENO, &read_fds)) {
             fgets(buff, sizeof(buff), stdin);
             buff[strlen(buff)-1]=0;
             if(strcmp(buff, "start") == 0){
