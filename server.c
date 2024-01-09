@@ -28,7 +28,7 @@ int main(){
     int listen_socket = server_setup();
     while(!matchStarted && numOfPlayers < maxPlayerCount){
         fd_set read_fds;
-        char buff[20];
+        char buff[BUFFER_SIZE];
         printf("The current number of players is %d\n", numOfPlayers);
         printf("Type in start to start\n");
         FD_ZERO(&read_fds);
@@ -53,15 +53,15 @@ int main(){
     printf("The current number of players is %d\n", numOfPlayers);
     for(int i = 0; i < numOfPlayers; i++){
         char startingMessage[NAME_SIZE] = "The match is beginning get ready.";
-        int writeBytes = write(playerConnections[i], startingMessage, NAME_SIZE);
+        int writeBytes = write(playerConnections[i], &startingMessage, NAME_SIZE);
         printf("%d\n", writeBytes);
     }
-    // for(int i = 0; i < numOfPlayers; i++){
-    //     char confirmMessage[NAME_SIZE];
-    //     int readBytes = read(playerConnections[i], confirmMessage, NAME_SIZE);
-    //     printf("Confirmation: %s, bytes read: %d\n", confirmMessage, readBytes);
-    //     err(readBytes, "could not read from the client socket"); 
-    // }
+    for(int i = 0; i < numOfPlayers; i++){
+        char confirmMessage[NAME_SIZE];
+        int readBytes = read(playerConnections[i], &confirmMessage, NAME_SIZE);
+        printf("Confirmation: %s, bytes read: %d\n", confirmMessage, readBytes);
+        err(readBytes, "could not read from the client socket"); 
+    }
     printf("Starting Game\n");
     printf("Waiting for first response\n");
     struct clientDetails* responder = malloc(sizeof(struct clientDetails));
