@@ -1,5 +1,8 @@
 #include "networking.h"
 
+/*Connect to the server
+ *return the to_server socket descriptor
+ *blocks until connection is made.*/
 int client_tcp_handshake(char *server_address)
 {
 
@@ -15,7 +18,7 @@ int client_tcp_handshake(char *server_address)
   err(serverd, "Line 17\n");
   // connect to the server
   int serverSocket = connect(serverd, results->ai_addr, results->ai_addrlen);
-  err(serverSocket, "Server refused connection with client");
+  err(serverSocket, "Connecting to server");
   free(hints);
   freeaddrinfo(results);
 
@@ -28,7 +31,7 @@ int client_tcp_handshake(char *server_address)
  */
 int server_tcp_handshake(int listen_socket)
 {
-  // printf("Waiting for player\n");
+  printf("Waiting for connection\n");
   int client_socket;
   // accept the client connection
   int clientSocket;
@@ -36,7 +39,7 @@ int server_tcp_handshake(int listen_socket)
   struct sockaddr_storage client_address;
   sockSize = sizeof(client_address);
   client_socket = accept(listen_socket, (struct sockaddr *)&client_address, &sockSize);
-  err(client_socket, "Client refused to accept connection");
+  err(client_socket, "Accepting Connection");
   return client_socket;
 }
 
@@ -62,8 +65,7 @@ int server_setup()
   // bind the socket to address and port
   bind(clientd, results->ai_addr, results->ai_addrlen);
   // set socket to listen state
-  listen(clientd, 16);
-  printf("Opening up the server\n");
+  listen(clientd, 10);
   // free the structs used by getaddrinfo
   free(hints);
   freeaddrinfo(results);

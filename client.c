@@ -15,12 +15,9 @@ int server_handling (int server_socket) {
     while (* flag) { 
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
-        int readBytes = read(server_socket, buff, BUFFER_SIZE);
+        int readBytes = read(server_socket, buff, NAME_SIZE);
         err(readBytes, "could not read to the server socket"); 
-        printf("%s", buff);
-        buff = "Ready";
-        int writeBytes = write(server_socket, buff, BUFFER_SIZE);
-        err(writeBytes, "could not write to the server socket"); 
+        printf("%s\n", buff);
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
 
@@ -41,7 +38,7 @@ int server_handling (int server_socket) {
         err(bytes, "could not read the bytes"); 
         // probably check if less than or equal and then throw an error here if 0 bytes
         sscanf(buff, "%d", flag);  
-        //free(data); 
+        // free(data); 
     }
     free(buff); 
 
@@ -81,9 +78,9 @@ int main (int argc, char *argv[]) {
     // add logic for everything here 
     server_handling (server_socket); 
 
-    char data[256];
-    read(server_socket, data, 256);
-    printf("%s", data);
+    // char data[256];
+    // read(server_socket, data, 256);
+    // printf("%s", data);
 
     free(userName);
 } 

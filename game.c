@@ -23,6 +23,7 @@ struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clien
         if(readBytes == 0){
           return client2;
         }
+        printf("%d\n", readBytes);
         sscanf(buff,"%d", &(client1 -> guess));
         printf("%d\n", client1 -> guess);
         return client1;

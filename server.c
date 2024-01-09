@@ -1,7 +1,5 @@
 #include "networking.h"
 #include "game.h"
-#include <sys/select.h> // needed for the retrieve files
-
 struct clientDetails* createClient(int connection, char * buff){
     struct clientDetails* p = malloc(sizeof(struct clientDetails));
     p -> connection = connection;
@@ -24,9 +22,9 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
 int main(){
     int matchStarted = 0;
     int numOfPlayers = 0;
-    int maxPlayerCount = 4;
-    int playerConnections[4];
-    struct clientDetails* players[4];
+    int maxPlayerCount = 2;
+    int playerConnections[2];
+    struct clientDetails* players[2];
     int listen_socket = server_setup();
     while(!matchStarted && numOfPlayers < maxPlayerCount){
         fd_set read_fds;
@@ -46,24 +44,23 @@ int main(){
         }
         if(FD_ISSET(listen_socket, &read_fds)){
             playerConnections[numOfPlayers] = server_tcp_handshake(listen_socket);
-            read(playerConnections[numOfPlayers], buff, sizeof(buff));
+            int readBytes = read(playerConnections[numOfPlayers], buff, sizeof(buff));
             players[numOfPlayers] = createClient(playerConnections[numOfPlayers], buff);
             printf("%d, %d\n", numOfPlayers, playerConnections[numOfPlayers]);
             numOfPlayers++;
         }
     }
-    // printf("The current number of players is %d\n", numOfPlayers);
+    printf("The current number of players is %d\n", numOfPlayers);
+    for(int i = 0; i < numOfPlayers; i++){
+        char startingMessage[NAME_SIZE] = "The match is beginning get ready.";
+        int writeBytes = write(playerConnections[i], startingMessage, NAME_SIZE);
+        printf("%d\n", writeBytes);
+    }
     // for(int i = 0; i < numOfPlayers; i++){
-    //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.\n";
-    //     write(playerConnections[i], startingMessage, sizeof(startingMessage));
-    // }
-    // for(int i = 0; i < numOfPlayers; i++){
-    //     char* startingMessage = malloc(BUFFER_SIZE);
-    //     read(playerConnections[i], startingMessage, sizeof(startingMessage));
-    //     if(strcmp(startingMessage, "Ready") != 0){
-    //         printf("%s\n", startingMessage);
-    //         printf("Problem with connection\n");
-    //     }
+    //     char confirmMessage[NAME_SIZE];
+    //     int readBytes = read(playerConnections[i], confirmMessage, NAME_SIZE);
+    //     printf("Confirmation: %s, bytes read: %d\n", confirmMessage, readBytes);
+    //     err(readBytes, "could not read from the client socket"); 
     // }
     printf("Starting Game\n");
     printf("Waiting for first response\n");
