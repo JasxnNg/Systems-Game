@@ -121,16 +121,28 @@ int main(){
 
     }
     printf("The current number of players is %d\n", numOfPlayers);
-    for(int i = 0; i < numOfPlayers; i++){
-        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
-        int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
-        err(writeBytes, "could not write to client socket"); 
-        printf("%d\n", writeBytes);
+    while(numOfPlayers > 1){
+        int numberOfServers = numOfPlayers / 2;
+        int playerPosInArray = 0;
+        struct clientDetails* alivePlayers[2];
+        for(int i = 0; i < numberOfServers; i++){
+            pid_t p = fork();
+            if(p == 0){
+                client_handling()
+            }
+        }
     }
-    printf("Starting Game\n");
-    printf("Waiting for first response\n");
+
+    // for(int i = 0; i < numOfPlayers; i++){
+    //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+    //     int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
+    //     err(writeBytes, "could not write to client socket"); 
+    //     printf("%d\n", writeBytes);
+    // }
+    // printf("Starting Game\n");
+    // printf("Waiting for first response\n");
     // struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     // responder = retrieveNumber(players[0], players[1]);
-    printf("Guess is %d\n", responder -> connection);
-    game(players[0], players[1]);
+    // printf("Guess is %d\n", responder -> connection);
+    // game(players[0], players[1]);
 }
