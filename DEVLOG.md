@@ -78,4 +78,6 @@ Wrote function chooseUser() in server.c and added communication between server a
 2024-01-08 8:35 PM Fixing bugs --- took way longer than necessary 
 Wrote a helper function for future use (numUsers); tried fixing bugs where the server and client could not communicate properly; TOOK WAYY TOO MUCH TIME ON THAT; ~1 hour (it's because we read in 256 bytes when reading in BUFFER_SIZE was the problem here). Will communicate with group about this
 
+2024-01-09 2:20 PM 
+
 ```
