@@ -12,11 +12,11 @@ int server_handling (int server_socket) {
     char * buff = malloc (sizeof(char) * BUFFER_SIZE); 
     // maybe add a struct here? 
     // this can help identify which one this is from? 
-    while (* flag) { 
+    while (* flag) {
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
         int readBytes = read(server_socket, buff, BUFFER_SIZE);
-        err(readBytes, "could not read to the server socket"); 
+        err(readBytes, "could not read to the server socket");/*
         printf("%s\n", buff);
         buff = "Ready";
         write(server_socket, buff, BUFFER_SIZE);
@@ -39,8 +39,12 @@ int server_handling (int server_socket) {
         bytes = read(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not read the bytes"); 
         // probably check if less than or equal and then throw an error here if 0 bytes
-        sscanf(buff, "%d", flag);  
+        sscanf(buff, "%d", flag);  */
         // free(data); 
+
+        int bytes = read(server_socket, buff, BUFFER_SIZE); 
+        err(bytes, "could not read the bytes");
+        printf("%s\n", buff);
     }
     free(buff); 
 
@@ -78,11 +82,11 @@ int main (int argc, char *argv[]) {
     printf("user: %s joined server successfully!\n", userName);
     int bytes = write(server_socket, userName, NAME_SIZE);  // write the user to the server
     // add logic for everything here 
-    server_handling (server_socket); 
+    //server_handling (server_socket); 
 
-    // char data[256];
-    // read(server_socket, data, 256);
-    // printf("%s", data);
+    char data[256];
+    read(server_socket, data, 256);
+    printf("%s", data);
 
     free(userName);
 } 

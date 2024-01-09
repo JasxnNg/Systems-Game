@@ -87,9 +87,11 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   // returns the file descriptor of the winner
 
   struct fileinfo data = randFile();
-  char msg[128] = "Guess the size of the following file: ";
+  char msg[1024] = "Guess the size of the following file: ";
   strcat(msg, data.name);
   strcat(msg, "\n");
-  write(client1->connection, msg, 64);
-  write(client2->connection, msg, 64);
+  printf("%s", msg);
+  write(client1->connection, msg, 1024);
+  write(client2->connection, msg, 1024);
+  printf("second time %s", msg);
 }
