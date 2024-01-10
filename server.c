@@ -79,9 +79,17 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
     }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
+    char* loser = malloc(BUFFER_SIZE); 
+    char* winner = malloc(BUFFER_SIZE); 
+    winner[0] = "1";
+    loser[0] = "0";
     if(winner -> connection == client1 -> connection){
+        write(client2, loser, BUFFER_SIZE);
+        write(client1, winner, BUFFER_SIZE);
         return 0;
     } else{
+        write(client1, loser, BUFFER_SIZE);
+        write(client2, winner, BUFFER_SIZE);
         return 1;
     }
 }
