@@ -78,7 +78,6 @@ struct fileinfo randFile() {
   }
 }
 
-
 struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
   // runs a match between client1 and client2
   // requires the file descriptors for the two clients
@@ -88,33 +87,44 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
 
   struct fileinfo data = randFile();
-  while (strcmp(data.name, ".") == 0 || strcmp(data.name, ".") == 0) {
+  while (strcmp(data.name, ".") == 0 || strcmp(data.name, "..") == 0) {
     data = randFile();
   }
   int fileSize = data.size; 
 
   printf("real file size: %d [LINE 94 IN GAME.C]", fileSize); 
   char * msg = malloc(sizeof (char) * BUFFER_SIZE);
-  sprintf(msg, "%s %s \n", "Guess the size of the following file: ", data.name); 
+  printf(msg, "%s %s \n", "Guess the size of the following file: ", data.name); 
   write(client1->connection, msg, BUFFER_SIZE);
   write(client2->connection, msg, BUFFER_SIZE);
-
+  
   struct clientDetails * firstGuess = retrieveNumber(client1, client2); 
   struct clientDetails * secondGuess = retrieveNumber(client1, client2); 
 
   int guess1 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS1 FILE TABLE: %d\n", client1->connection); 
-  int guess2 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS2 FILE TABLE: %d\n", client2->connection); 
+  printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
+  int guess2 = abs(fileSize - secondGuess->guess); 
+  printf("GUESS2 FILE TABLE: %d; GUESS2 %d\n", client2->connection, guess2); 
 
   free(msg); 
   
   if (guess1  < guess2) {
     return firstGuess; 
   }
-  else 
+  else if (guess1 > guess2)
     return secondGuess; 
+  else  
+    return NULL; // return null if we have the same guess
 
+}
+
+struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
+  
+  struct clientDetails * firstGuess = retrieveNumber(client1, client2);
+  struct clientDetails * secondGuess = retrieveNumber(client1, client2);
+  
+  int guess1 = firstGuess->guess;
+  int guess2 = secondGuess->guess;
 }
 
 // fork should handle each game but main server should handle the distribution of code 
