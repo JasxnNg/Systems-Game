@@ -83,6 +83,9 @@ Wrote function chooseUser() in server.c and added communication between server a
 Wrote a helper function for future use (numUsers); tried fixing bugs where the server and client could not communicate properly; TOOK WAYY TOO MUCH TIME ON THAT; ~1 hour (it's because we read in 256 bytes when reading in BUFFER_SIZE was the problem here). Will communicate with group about this
 
 2024-01-09 2:20 PM Finished basic work on game
-Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again
+Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again ~30 minutes
+
+2024-01-10 12:59 AM 
+Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes 
 
 ```

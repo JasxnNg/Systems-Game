@@ -75,6 +75,7 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
             writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
         }
         err(writeBytes, "could not write to client socket"); 
+        // reminder need to check writeBytes for == 0 if connection is broken
     }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
@@ -154,14 +155,17 @@ int main(){
         for(int i = 0; i < numberOfServers; i++){
             p = fork();
             if(p == 0){
+                //THE SUBSERVER CAN'T EVEN PRINT HERE 
                 printf("Starting game as the subserver\n");
-                client_handling(alivePlayers[0], alivePlayers[1]);
-                exit(0);
+                int exiting = client_handling(alivePlayers[0], alivePlayers[1]); 
+                printf("%d\n", exiting ); 
+                exit(exiting);
             }
         }
         if(p != 0){
             int status;
             wait(&status);
+            printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
         }
         numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
     }
