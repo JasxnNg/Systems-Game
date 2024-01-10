@@ -46,7 +46,7 @@ Allowed the server to start a match whenever it wanted even if max number of pla
 I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~3 hours 30 minutes
 
 2024-01-09 Started work on forking server
-I fixed all the small problems with server and client due to extra reads and writes. Then I worked on the subserver, first creating the subserver logic then creating the forking. I created a way to find all the players still playing and put them into an array so that it was easier to fork. Then I worked on forking and fixed problems due to bad connection errnos. ~2 15 hours
+I fixed all the small problems with server and client due to extra reads and writes. Then I worked on the subserver, first creating the subserver logic then creating the forking. I created a way to find all the players still playing and put them into an array so that it was easier to fork. Then I worked on forking and fixed problems due to bad connection errnos. ~2 hours 15 minutes
 
 Aareeb Jamil:
 
