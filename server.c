@@ -86,13 +86,18 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
     }
 }
 
+// AUTOMATICALLY GIVE THE WIN IF SOMEONE LOSES CONNECTION
+
 int main(){
     // int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
     int playersJoined = 0;
     int maxPlayerCount = 2;
+    //might be able to add a semaphore here  
     pid_t p;
+
+    //malloc the rest 
     int playerConnections[2];
     struct clientDetails* players[2];
     int listen_socket = server_setup();
