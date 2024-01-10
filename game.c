@@ -78,7 +78,6 @@ struct fileinfo randFile() {
   }
 }
 
-
 struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
   // runs a match between client1 and client2
   // requires the file descriptors for the two clients
@@ -119,14 +118,13 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
 }
 
-// int main() {
-//   struct fileinfo data = randFile();
-//   while (strcmp(data.name, ".") == 0 || strcmp(data.name, "..") == 0) {
-//     data = randFile();
-//   }
-//   int fileSize = data.size; 
-//   printf("%s %s \n", "Guess the size of the following file: ", data.name); 
-// }
-
+struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
+  
+  struct clientDetails * firstGuess = retrieveNumber(client1, client2);
+  struct clientDetails * secondGuess = retrieveNumber(client1, client2);
+  
+  int guess1 = firstGuess->guess;
+  int guess2 = secondGuess->guess;
+}
 
 // fork should handle each game but main server should handle the distribution of code 
