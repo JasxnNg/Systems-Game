@@ -75,6 +75,7 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
             writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
         }
         err(writeBytes, "could not write to client socket"); 
+        // reminder need to check writeBytes for == 0 if connection is broken
     }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
@@ -172,22 +173,10 @@ int main(){
     //     err(writeBytes, "could not write to client socket"); 
     //     printf("%d\n", writeBytes);
     // }
-<<<<<<< HEAD
-    printf("Starting Game\n");
-    printf("Waiting for first response\n"); 
-
-
-    // THIS CODE IS ALREADY IN GAME WHERE WE HAVE MALLOC AND STUFF HERE 
-    struct clientDetails* responder = malloc(sizeof(struct clientDetails));
-    responder = retrieveNumber(players[0], players[1]);
-    printf("Guess is %d\n", responder -> connection);
-    game(players[0], players[1]);
-=======
     // printf("Starting Game\n");
     // printf("Waiting for first response\n");
     // struct clientDetails* responder = malloc(sizeof(struct clientDetails));
     // responder = retrieveNumber(players[0], players[1]);
     // printf("Guess is %d\n", responder -> connection);
     // game(players[0], players[1]);
->>>>>>> main
 }

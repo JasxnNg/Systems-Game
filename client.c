@@ -17,16 +17,18 @@ int server_handling (int server_socket) {
         // this is to know when to stop and how to win
         strcpy(buff, "Ready to play");
         int bytes = write(server_socket, buff, BUFFER_SIZE);
-        err(bytes, "could not write to the server socket");
+        err(bytes, "could not write to the server socket [LINE 20]");
+        printf("%d bytes written\n", bytes);
+    
 
         bytes = read(server_socket, buff, BUFFER_SIZE);
-        err(bytes, "could not read from the server socket");
+        err(bytes, "could not read from the server socket [LINE 24]");
         printf("%s %d\n", buff, bytes); 
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
         bytes = read(server_socket, data, BUFFER_SIZE); 
         if (bytes <= 0 ) {
-            perror("could not read\n");
+            perror("could not read [LINE 29]\n");
         }
         printf("%s %d\n", data, bytes);
 
