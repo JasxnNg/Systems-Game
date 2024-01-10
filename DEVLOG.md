@@ -59,6 +59,9 @@ In the morning (before school), I planned the overall structure of game.c by add
 2023-01-08 Writing main game function
 In class, I worked on the structure of the main game function and used the retrieveNumber helper function that Brian wrote. At home, I tried testing but had issues on the networking side. Now that's fine but I need to make randFile() not produce "." and ".." as results
 
+2023-01-09 Fixing randFile
+I was absent today due to being sick. randFile had a bug where it would sometimes return the "." or ".." entry. I changed game such that randFile is called until it doesn't return those entries.
+
 Jason Ng:
 
 2024-01-03 11:32 PM Reformatted devlog
