@@ -63,16 +63,15 @@ int server_handling (int server_socket) {
         checkConnection(bytes, "could not write to the server socket [LINE 62]"); 
 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
-        err(bytes, "could not read the bytes"); 
-        if (bytes <= 0 ) {
-            perror("could not read [LINE 53]\n");
-        }
+        checkConnection(bytes, "could not read from server socket [LINE 65]"); 
+
         // probably check if less than or equal and then throw an error here if 0 bytes
         sscanf(buff, "%d", &flag);  
         // free(data); 
 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
-        err(bytes, "could not read the bytes");
+        checkConnection(server_socket, "could not read bytes [LINE 72]"); 
+
         printf("%s\n", buff);
     }
     free(buff); 

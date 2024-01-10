@@ -96,16 +96,16 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   printf("real file size: %d [LINE 94 IN GAME.C]", fileSize); 
   char * msg = malloc(sizeof (char) * BUFFER_SIZE);
   printf(msg, "%s %s \n", "Guess the size of the following file: ", data.name); 
-  /*write(client1->connection, msg, BUFFER_SIZE);
+  write(client1->connection, msg, BUFFER_SIZE);
   write(client2->connection, msg, BUFFER_SIZE);
   
   struct clientDetails * firstGuess = retrieveNumber(client1, client2); 
   struct clientDetails * secondGuess = retrieveNumber(client1, client2); 
 
   int guess1 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS1 FILE TABLE: %d\n", client1->connection); 
-  int guess2 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS2 FILE TABLE: %d\n", client2->connection); 
+  printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
+  int guess2 = abs(fileSize - secondGuess->guess); 
+  printf("GUESS2 FILE TABLE: %d; GUESS2 %d\n", client2->connection, guess2); 
 
   free(msg); 
   
@@ -119,13 +119,13 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
 }
 
-int main() {
-  struct fileinfo data = randFile();
-  while (strcmp(data.name, ".") == 0 || strcmp(data.name, "..") == 0) {
-    data = randFile();
-  }
-  int fileSize = data.size; 
-  printf("%s %s \n", "Guess the size of the following file: ", data.name); 
-}
+// int main() {
+//   struct fileinfo data = randFile();
+//   while (strcmp(data.name, ".") == 0 || strcmp(data.name, "..") == 0) {
+//     data = randFile();
+//   }
+//   int fileSize = data.size; 
+//   printf("%s %s \n", "Guess the size of the following file: ", data.name); 
+// }
 
 // fork should handle each game but main server should handle the distribution of code 
