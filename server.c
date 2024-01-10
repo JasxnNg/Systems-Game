@@ -101,10 +101,10 @@ int main(){
     int matchStarted = 0;
     int numOfPlayers = 0;
     int playersJoined = 0;
-    int maxPlayerCount = 2;
+    int maxPlayerCount = 4;
     pid_t p;
-    int playerConnections[2];
-    struct clientDetails* players[2];
+    int playerConnections[maxPlayerCount];
+    struct clientDetails* players[maxPlayerCount];
     int listen_socket = server_setup();
     while(!matchStarted && numOfPlayers < maxPlayerCount){
         fd_set read_fds;
@@ -167,7 +167,7 @@ int main(){
             if(p == 0){
                 //THE SUBSERVER CAN'T EVEN PRINT HERE 
                 printf("Starting game as the subserver\n");
-                int exiting = client_handling(alivePlayers[0], alivePlayers[1]); 
+                int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1]); 
                 printf("%d\n", exiting ); 
                 exit(exiting);
             }

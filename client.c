@@ -40,7 +40,8 @@ int server_handling (int server_socket) {
 
         printf("%s %d\n", buff, bytes); 
         if(!strcmp(buff, "the winner is you")){
-            break;
+            free(buff);
+            return 0;
         }
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
