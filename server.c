@@ -53,7 +53,29 @@ struct clientDetails* createClient(int connection, char * buff){
     return p;
 }
 
+int isPlaying(int playerConnection){
+    char* test = malloc(BUFFER_SIZE);
+    if(read(playerConnection, test, BUFFER_SIZE) == 0){
+        return 0;
+    }
+    else{
+        return 1;
+    }
+}
+
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
+    printf("Sending message to start game\n");
+    for(int i = 0; i < 2; i++){
+        int writeBytes;
+        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+        if(i == 0){
+            writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
+        }
+        if(i == 1){
+            writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
+        }
+        err(writeBytes, "could not write to client socket"); 
+    }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
     if(winner -> connection == client1 -> connection){
@@ -67,7 +89,9 @@ int main(){
     // int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
+    int playersJoined = 0;
     int maxPlayerCount = 2;
+    pid_t p;
     int playerConnections[2];
     struct clientDetails* players[2];
     int listen_socket = server_setup();
@@ -112,20 +136,43 @@ int main(){
 
     }
     printf("The current number of players is %d\n", numOfPlayers);
-     for(int i = 0; i < numOfPlayers; i++){
-        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
-        int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
-        err(writeBytes, "could not write to client socket"); 
-        printf("%d\n", writeBytes);
-     }
-    // for(int i = 0; i < numOfPlayers; i++){
-    //     char confirmMessage[BUFFER_SIZE];
-    //     int readBytes = read(playerConnections[i], confirmMessage, BUFFER_SIZE);
-    //     printf("Confirmation: %s, bytes read: %d, player num: %d, player connection: %d\n", confirmMessage, readBytes, i, playerConnections[i]);
-    //     err(readBytes, "could not read from the client socket"); 
-        
+    playersJoined = numOfPlayers;
+    while(numOfPlayers > 1){
+        int numberOfServers = numOfPlayers / 2;
+        int playerPosInArray = 0;
+        struct clientDetails* alivePlayers[numOfPlayers];
+        printf("Completed step 1\n");
+        printf("Working on finding alive players\n");
+        for(int i = 0; i < playersJoined; i++){
+            if(isPlaying(playerConnections[i])){
+                printf("Player is still connnected\n");
+                alivePlayers[playerPosInArray] = players[i];
+                playerPosInArray++;
+            }
+        }
+        printf("Completed step 2\n");
+        for(int i = 0; i < numberOfServers; i++){
+            p = fork();
+            if(p == 0){
+                printf("Starting game as the subserver\n");
+                client_handling(alivePlayers[0], alivePlayers[1]);
+                exit(0);
+            }
+        }
+        if(p != 0){
+            int status;
+            wait(&status);
+        }
+        numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
+    }
 
+    // for(int i = 0; i < numOfPlayers; i++){
+    //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+    //     int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
+    //     err(writeBytes, "could not write to client socket"); 
+    //     printf("%d\n", writeBytes);
     // }
+<<<<<<< HEAD
     printf("Starting Game\n");
     printf("Waiting for first response\n"); 
 
@@ -135,4 +182,12 @@ int main(){
     responder = retrieveNumber(players[0], players[1]);
     printf("Guess is %d\n", responder -> connection);
     game(players[0], players[1]);
+=======
+    // printf("Starting Game\n");
+    // printf("Waiting for first response\n");
+    // struct clientDetails* responder = malloc(sizeof(struct clientDetails));
+    // responder = retrieveNumber(players[0], players[1]);
+    // printf("Guess is %d\n", responder -> connection);
+    // game(players[0], players[1]);
+>>>>>>> main
 }

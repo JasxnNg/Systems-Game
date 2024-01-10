@@ -15,20 +15,23 @@ int server_handling (int server_socket) {
     while ( flag) {
         // we should probably make the read in a struct as well 
         // this is to know when to stop and how to win
-        int readBytes = read(server_socket, buff, BUFFER_SIZE);
-        err(readBytes, "could not read to the server socket");
-        printf("%s %d\n", buff, readBytes); 
+        strcpy(buff, "Ready to play");
+        int bytes = write(server_socket, buff, BUFFER_SIZE);
+        err(bytes, "could not write to the server socket");
 
+        bytes = read(server_socket, buff, BUFFER_SIZE);
+        err(bytes, "could not read from the server socket");
+        printf("%s %d\n", buff, bytes); 
 
-        // printf("%s\n", buff);
-        // buff = "Ready";
+        char * data = malloc(sizeof(char) * BUFFER_SIZE);
+        bytes = read(server_socket, data, BUFFER_SIZE); 
+        if (bytes <= 0 ) {
+            perror("could not read\n");
+        }
+        printf("%s %d\n", data, bytes);
 
-        readBytes = read (server_socket, buff, BUFFER_SIZE);
-        err(readBytes, "could not write to the server socket"); 
-        printf("%s %d\n", buff, readBytes); 
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
-
         printf("enter a number: "); 
         fgets(buff, BUFFER_SIZE, stdin);
         buff = strsep(&buff, "\n"); 
@@ -39,7 +42,7 @@ int server_handling (int server_socket) {
         // should we have error checking to be local? 
 
         // it would be cool to have a help command here! 
-        int bytes = write(server_socket, buff, BUFFER_SIZE); 
+        bytes = write(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not write to the server socket"); 
 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
@@ -89,7 +92,7 @@ int main (int argc, char *argv[]) {
     int bytes = write(server_socket, userName, NAME_SIZE);  // write the user to the server
     err(bytes, "could not write the bytes to the server socket"); 
     // add logic for everything here 
-    // server_handling (server_socket); 
+    server_handling (server_socket); 
 
     char * data = malloc(sizeof(char) * BUFFER_SIZE);
     bytes = read(server_socket, data, BUFFER_SIZE); 

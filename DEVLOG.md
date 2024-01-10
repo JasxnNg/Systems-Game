@@ -24,26 +24,30 @@ Expanded description including how much time was spent on task.
 Brian Chau:
 
 2024-01-03 Started working on proposal
-I added names of group members, our idea and how the user would use the program I worked on it with group members for roughly 30 minutes. At home I started on the technical details by determing which topics we were going to use for our project which took another 20 minutes.
+I added names of group members, our idea and how the user would use the program I worked on it with group members for roughly 30 minutes. At home I started on the technical details by determing which topics we were going to use for our project which took another 20 minutes. ~50 minutes
 
 2024-01-04 Finished proposal and began work on networking
 I modified our intended project usage and topics we added because of the change in the type of game
-we wanted. I worked on this with my group for 30 minutes. At home I copied over a bunch of the networking code from lab to be modified and added main to server and made sure that it worked properly which took 10 minutes. Then, I decided to make the server an array to hold all the connections and then put the connections into the array. This took 20 minutes with most of the time spent coming with the idea.
+we wanted. I worked on this with my group for 30 minutes. At home I copied over a bunch of the networking code from lab to be modified and added main to server and made sure that it worked properly which took 10 minutes. Then, I decided to make the server an array to hold all the connections and then put the connections into the array. This took 20 minutes with most of the time spent coming with the idea. ~1 hour
 
 2024-01-05 Started work on a way to listen to multiple clients
-Spent the 40 minutes at school working on the first itieration of the retrieveNumber function which was a copy of the select demo with some changes to fit the project. Then I created a struct to be used to hold both the guess and client metadata to be able to determine which client was communicating. At home, I fixed the struct and then added the struct to the function and fixed all the compiling issues which took 20 minutes.
+Spent the 40 minutes at school working on the first itieration of the retrieveNumber function which was a copy of the select demo with some changes to fit the project. Then I created a struct to be used to hold both the guess and client metadata to be able to determine which client was communicating. At home, I fixed the struct and then added the struct to the function and fixed all the compiling issues which took 20 minutes. ~1 hour
 
 2024-01-05 Started work on a way to listen to multiple clients
-Spent the 40 minutes at school working on the first itieration of the retrieveNumber function which was a copy of the select demo with some changes to fit the project. Then I created a struct to be used to hold both the guess and client metadata to be able to determine which client was communicating. At home, I fixed the struct and then added the struct to the function and fixed all the compiling issues which took 20 minutes.
+Spent the 40 minutes at school working on the first itieration of the retrieveNumber function which was a copy of the select demo with some changes to fit the project. Then I created a struct to be used to hold both the guess and client metadata to be able to determine which client was communicating. At home, I fixed the struct and then added the struct to the function and fixed all the compiling issues which took 30 minutes. ~1 hour, 10 minutes
 
-2025-01-06 Fixing bugs on retrieveNumber and server creates structs
+2024-01-06 Fixing bugs on retrieveNumber and server creates structs
 Made a function to create structs based on the connections from clients to store the guesses from retrieveNumber. Then I fixed some bugs so that retrieveNumber works fully with the clientData struct rather than an int. ~40 minutes
 
-2025-01-07 Started implementation of dynamic starts
+2024-01-07 Started implementation of dynamic starts
 Allowed the server to start a match whenever it wanted even if max number of players was not reached. Also continued working on retrieveNumber to fix some bugs. ~30 minutes
 
-2025-01-08 Completed work on starting match and couldn't fix bug with retrieveNumber
-I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~2 hour
+2024-01-08 Completed work on starting match and couldn't fix bug with retrieveNumber
+I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~3 hours 30 minutes
+
+2024-01-09 Started work on forking server
+I fixed all the small problems with server and client due to extra reads and writes. Then I worked on the subserver, first creating the subserver logic then creating the forking. I created a way to find all the players still playing and put them into an array so that it was easier to fork. Then I worked on forking and fixed problems due to bad connection errnos. ~2 15 hours
+
 Aareeb Jamil:
 
 2024-01-04 Edited proposal
@@ -75,10 +79,12 @@ Finished client input logic; worked on debugging and testing; tested the server 
 2024-01-08 2:10 PM Working on choosing usernames
 Wrote function chooseUser() in server.c and added communication between server and client... fixing a ton of merge conflicts
 
-2024-01-08 8:35 PM Fixing bugs --- took way longer than necessary 
+2024-01-08 8:35 PM Fixing bugs --- took way longer than necessary
 Wrote a helper function for future use (numUsers); tried fixing bugs where the server and client could not communicate properly; TOOK WAYY TOO MUCH TIME ON THAT; ~1 hour (it's because we read in 256 bytes when reading in BUFFER_SIZE was the problem here). Will communicate with group about this
 
 2024-01-09 2:20 PM Finished basic work on game
-Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again 
+Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again ~30 minutes
+
+2024-01-10 12:59 AM 
 
 ```
