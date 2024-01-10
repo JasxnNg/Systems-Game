@@ -30,7 +30,7 @@ int server_handling (int server_socket) {
         if (bytes <= 0 ) {
             perror("could not read [LINE 29]\n");
         }
-        printf("%s %d\n", data, bytes);
+        printf("%s %d [line 29]\n", data, bytes);
 
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
@@ -46,9 +46,15 @@ int server_handling (int server_socket) {
         // it would be cool to have a help command here! 
         bytes = write(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not write to the server socket"); 
+        if (bytes <= 0 ) {
+            perror("could not read [LINE 47]\n");
+        }
 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not read the bytes"); 
+        if (bytes <= 0 ) {
+            perror("could not read [LINE 53]\n");
+        }
         // probably check if less than or equal and then throw an error here if 0 bytes
         sscanf(buff, "%d", &flag);  
         // free(data); 
