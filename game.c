@@ -103,9 +103,9 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   struct clientDetails * secondGuess = retrieveNumber(client1, client2); 
 
   int guess1 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS1 FILE TABLE: %d\n", client1->connection); 
-  int guess2 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS2 FILE TABLE: %d\n", client2->connection); 
+  printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
+  int guess2 = abs(fileSize - secondGuess->guess); 
+  printf("GUESS2 FILE TABLE: %d; GUESS2 %d\n", client2->connection, guess2); 
 
   free(msg); 
   
@@ -119,14 +119,14 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
 }
 
-int main() {
-  struct fileinfo data = randFile();
-  while (strcmp(data.name, ".") == 0 || strcmp(data.name, "..") == 0) {
-    data = randFile();
-  }
-  int fileSize = data.size; 
-  printf("%s %s \n", "Guess the size of the following file: ", data.name); 
-}
+// int main() {
+//   struct fileinfo data = randFile();
+//   while (strcmp(data.name, ".") == 0 || strcmp(data.name, "..") == 0) {
+//     data = randFile();
+//   }
+//   int fileSize = data.size; 
+//   printf("%s %s \n", "Guess the size of the following file: ", data.name); 
+// }
 
 
 // fork should handle each game but main server should handle the distribution of code 
