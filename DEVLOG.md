@@ -88,4 +88,6 @@ Finished up and cleaned up the code for game; still need to work on the case whe
 2024-01-10 12:59 AM 
 Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes 
 
+2024-01-10 2:20 PM 
+
 ```

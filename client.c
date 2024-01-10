@@ -8,7 +8,7 @@
 
 
 void checkConnection (int server_socket, char * message) {
-    if (server_socket < 0) {
+    if (server_socket <= 0) {
         printf("Error: %s\n", message);
         if (server_socket == 0 ) {
             printf("Lost connection with the server\n");
