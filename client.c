@@ -6,6 +6,18 @@
 //     if (errInt )
 // } 
 
+
+void checkConnection (int server_socket, char * message) {
+    if (server_socket < 0) {
+        printf("Error: %s\n", message);
+        if (server_socket == 0 ) {
+            printf("Lost connection with the server\n");
+        }
+        exit(1);
+    }
+}
+
+
 int server_handling (int server_socket) {
     int flag; // this will be used to identify the winner
     flag = 1;  
@@ -17,20 +29,23 @@ int server_handling (int server_socket) {
         // this is to know when to stop and how to win
         strcpy(buff, "Ready to play");
         int bytes = write(server_socket, buff, BUFFER_SIZE);
-        err(bytes, "could not write to the server socket [LINE 20]");
-        printf("%d bytes written\n", bytes);
+        checkConnection(bytes, "could not write to the server socket [LINE 28]"); 
+        
+        // COMMENT THIS OUT LATER
+        printf("%d bytes written [LINE 28]\n", bytes);
     
 
         bytes = read(server_socket, buff, BUFFER_SIZE);
-        err(bytes, "could not read from the server socket [LINE 24]");
+        checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
+
         printf("%s %d\n", buff, bytes); 
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
         bytes = read(server_socket, data, BUFFER_SIZE); 
-        if (bytes <= 0 ) {
-            perror("could not read [LINE 29]\n");
-        }
-        printf("%s %d [line 29]\n", data, bytes);
+        checkConnection(bytes, "could not read [LINE 41]"); 
+
+        //COMMENT THIS OUT LATER
+        printf("%s %d [LINE 41]\n", data, bytes);
 
         // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
         // read(server_socket, data, sizeof (struct clientDetails)); 
@@ -45,10 +60,7 @@ int server_handling (int server_socket) {
 
         // it would be cool to have a help command here! 
         bytes = write(server_socket, buff, BUFFER_SIZE); 
-        err(bytes, "could not write to the server socket"); 
-        if (bytes <= 0 ) {
-            perror("could not read [LINE 47]\n");
-        }
+        checkConnection(bytes, "could not write to the server socket [LINE 62]"); 
 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
         err(bytes, "could not read the bytes"); 
@@ -104,9 +116,9 @@ int main (int argc, char *argv[]) {
 
     char * data = malloc(sizeof(char) * BUFFER_SIZE);
     bytes = read(server_socket, data, BUFFER_SIZE); 
-    if (bytes <= 0 ) {
-        perror("could not read\n");
-    }
+    checkConnection(bytes, "could not read LINE 106"); 
+  
+
     printf("%s %d\n", data, bytes);
 
     free(userName);

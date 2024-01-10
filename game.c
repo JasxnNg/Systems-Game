@@ -112,8 +112,10 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   if (guess1  < guess2) {
     return firstGuess; 
   }
-  else 
+  else if (guess1 > guess2)
     return secondGuess; 
+  else  
+    return NULL; // return null if we have the same guess
 
 }
 
