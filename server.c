@@ -65,31 +65,33 @@ int isPlaying(int playerConnection){
 
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
     printf("Sending message to start game\n");
+    int connection1 = client1 -> connection;
+    int connection2 = client2 -> connection;
     for(int i = 0; i < 2; i++){
         int writeBytes;
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
         if(i == 0){
-            writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
+            writeBytes = write(connection1, startingMessage, BUFFER_SIZE);
         }
         if(i == 1){
-            writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
+            writeBytes = write(connection2, startingMessage, BUFFER_SIZE);
         }
         err(writeBytes, "could not write to client socket"); 
         // reminder need to check writeBytes for == 0 if connection is broken
     }
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
-    char* loser = malloc(BUFFER_SIZE); 
-    char* winner = malloc(BUFFER_SIZE); 
-    winner[0] = '1';
-    loser[0] = '0';
+    char* loseFlag = malloc(BUFFER_SIZE); 
+    char* winFlag = malloc(BUFFER_SIZE); 
+    winFlag[0] = '1';
+    loseFlag[0] = '0';
     if(winner -> connection == client1 -> connection){
-        write(client2, loser, BUFFER_SIZE);
-        write(client1, winner, BUFFER_SIZE);
+        write(connection2, loseFlag, BUFFER_SIZE);
+        write(connection1, winFlag, BUFFER_SIZE);
         return 0;
     } else{
-        write(client1, loser, BUFFER_SIZE);
-        write(client2, winner, BUFFER_SIZE);
+        write(connection1, loseFlag, BUFFER_SIZE);
+        write(connection2, winFlag, BUFFER_SIZE);
         return 1;
     }
 }
@@ -179,12 +181,14 @@ int main(){
         }
         numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
     }
+    printf("Game over!\n");
     for(int i = 0; i < playersJoined; i++){
+        printf("in the loop\n");
         if(isPlaying(playerConnections[i])){
-            printf("The winning player is %s, congratulation %s!", players[i], players[i]);
-            char* winner = malloc(BUFFER_SIZE);
-            winner[0] = '2';
-            write(players[i], winner, BUFFER_SIZE);
+            printf("The winning player is %s, congratulation %s!\n", players[i] -> identifier, players[i] -> identifier);
+            char* winFlag = malloc(BUFFER_SIZE);
+            strcpy(winFlag, "the winner is you");
+            write(players[i] -> connection, winFlag, BUFFER_SIZE);
         }
     }
     // for(int i = 0; i < numOfPlayers; i++){

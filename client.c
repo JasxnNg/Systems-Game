@@ -39,6 +39,9 @@ int server_handling (int server_socket) {
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
         printf("%s %d\n", buff, bytes); 
+        if(strcmp(buff, "the winner is you")){
+            flag = 0;
+        }
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
         bytes = read(server_socket, data, BUFFER_SIZE); 
@@ -66,13 +69,15 @@ int server_handling (int server_socket) {
         checkConnection(bytes, "could not read from server socket [LINE 65]"); 
 
         // probably check if less than or equal and then throw an error here if 0 bytes
-        sscanf(buff, "%d", &flag);  
+        sscanf(buff, "%d", &flag); 
+        if(flag == 0){
+            printf("You've lost :(\n");
+        } 
         // free(data); 
 
-        bytes = read(server_socket, buff, BUFFER_SIZE); 
-        checkConnection(server_socket, "could not read bytes [LINE 72]"); 
-
-        printf("%s\n", buff);
+        // bytes = read(server_socket, buff, BUFFER_SIZE); 
+        // err(bytes, "could not read the bytes");
+        // printf("%s\n", buff);
     }
     free(buff); 
 
@@ -113,6 +118,7 @@ int main (int argc, char *argv[]) {
     // add logic for everything here 
     server_handling (server_socket); 
 
+<<<<<<< HEAD
     char * data = malloc(sizeof(char) * BUFFER_SIZE);
     bytes = read(server_socket, data, BUFFER_SIZE); 
     checkConnection(bytes, "could not read LINE 106"); 
@@ -120,6 +126,8 @@ int main (int argc, char *argv[]) {
 
     printf("%s %d\n", data, bytes);
 
+=======
+>>>>>>> cfaf2aa257d5a920cbfb29cb0861897398124984
     free(userName);
 } 
 
