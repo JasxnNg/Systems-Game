@@ -118,13 +118,13 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
 }
 
-struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
+// struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
   
-  struct clientDetails * firstGuess = retrieveNumber(client1, client2);
-  struct clientDetails * secondGuess = retrieveNumber(client1, client2);
+//   struct clientDetails * firstGuess = retrieveNumber(client1, client2);
+//   struct clientDetails * secondGuess = retrieveNumber(client1, client2);
   
-  int guess1 = firstGuess->guess;
-  int guess2 = secondGuess->guess;
-}
+//   int guess1 = firstGuess->guess;
+//   int guess2 = secondGuess->guess;
+// }
 
 // fork should handle each game but main server should handle the distribution of code 

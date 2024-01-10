@@ -39,8 +39,8 @@ int server_handling (int server_socket) {
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
         printf("%s %d\n", buff, bytes); 
-        if(strcmp(buff, "the winner is you")){
-            flag = 0;
+        if(!strcmp(buff, "the winner is you")){
+            break;
         }
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
@@ -118,16 +118,6 @@ int main (int argc, char *argv[]) {
     // add logic for everything here 
     server_handling (server_socket); 
 
-<<<<<<< HEAD
-    char * data = malloc(sizeof(char) * BUFFER_SIZE);
-    bytes = read(server_socket, data, BUFFER_SIZE); 
-    checkConnection(bytes, "could not read LINE 106"); 
-  
-
-    printf("%s %d\n", data, bytes);
-
-=======
->>>>>>> cfaf2aa257d5a920cbfb29cb0861897398124984
     free(userName);
 } 
 
