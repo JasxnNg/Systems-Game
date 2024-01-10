@@ -92,6 +92,8 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
     data = randFile();
   }
   int fileSize = data.size; 
+
+  printf("real file size: %d [LINE 94 IN GAME.C]", fileSize); 
   char * msg = malloc(sizeof (char) * BUFFER_SIZE);
   sprintf(msg, "%s %s \n", "Guess the size of the following file: ", data.name); 
   write(client1->connection, msg, BUFFER_SIZE);
@@ -104,13 +106,12 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   int guess2 = abs(fileSize - firstGuess->guess); 
 
   free(msg); 
-  /*
+  
   if (guess1  < guess2) {
     return firstGuess; 
   }
   else 
     return secondGuess; 
-  }*/  
 
 }
 
