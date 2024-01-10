@@ -56,10 +56,10 @@ struct clientDetails* createClient(int connection, char * buff){
 int isPlaying(int playerConnection){
     char* test = malloc(BUFFER_SIZE);
     if(read(playerConnection, test, BUFFER_SIZE) == 0){
-        return 1;
+        return 0;
     }
     else{
-        return 2;
+        return 1;
     }
 }
 
@@ -159,13 +159,13 @@ int main(){
                 printf("Starting game as the subserver\n");
                 int exiting = client_handling(alivePlayers[0], alivePlayers[1]); 
                 printf("%d\n", exiting ); 
-                exit(0);
+                exit(exiting);
             }
         }
         if(p != 0){
             int status;
             wait(&status);
-            printf("STATUS: %d LINE 167\n", status);
+            printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
         }
         numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
     }
