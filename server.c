@@ -2,6 +2,19 @@
 #include "game.h"
 #include <sys/select.h> // needed for the retrieve files
 
+
+void serverConnection (int i, char * message) {
+    if (i == 0) {
+        printf("Client lost connection with the server!\n"); 
+    }
+    else if (i < 0) {
+        printf("Error: %s - %s\n", message, strerror(errno));
+        exit(1); 
+    }
+
+}
+
+
 // choose the amount of users that you want for this function 
 int chooseUser () {
     char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
@@ -56,28 +69,29 @@ struct clientDetails* createClient(int connection, char * buff){
 
 int isPlaying(int playerConnection){
     char* test = malloc(BUFFER_SIZE);
+    
     if(read(playerConnection, test, BUFFER_SIZE) == 0){
+        free(test); 
         return 0;
     }
     else{
+        free(test); 
         return 1;
     }
 }
 
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
     printf("Sending message to start game\n");
-    for(int i = 0; i < 2; i++){
-        int writeBytes;
-        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
-        if(i == 0){
-            writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
-        }
-        if(i == 1){
-            writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
-        }
-        err(writeBytes, "could not write to client socket"); 
+    int writeBytes;
+    char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+    
+    writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
+    serverConnection(writeBytes, "failed to write to the client"); 
+
+    writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
+    serverConnection(writeBytes, "failed to write to the client"); 
         // reminder need to check writeBytes for == 0 if connection is broken
-    }
+    
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
     winner = game(client1, client2);
     if(winner -> connection == client1 -> connection){
@@ -110,9 +124,9 @@ int main(){
         fd_set read_fds;
         char buff[BUFFER_SIZE];
         printf("The current number of players is %d\n", numOfPlayers);
-
-
         printf("Type in start to start\n");
+
+
         FD_ZERO(&read_fds);
         FD_SET(STDIN_FILENO, &read_fds);
         FD_SET(listen_socket, &read_fds);
@@ -160,10 +174,15 @@ int main(){
         printf("Working on finding alive players\n");
 
         for(int i = 0; i < playersJoined; i++){
+            // THIS FUNCTION DOES NOT WORK PROPERLY  
+            // TESTED BY STOPPING THE PLAYERS 
+            // PLEASE CHECK THIS SOON
+
+            //FOR SOME REASON THIS IS CHECKED AFTER??? IN LINE 41 
             if(isPlaying(playerConnections[i])){
 
                 
-                printf("Player is still connnected\n");
+                printf("Player is still connnected %d\n", playerConnections[i]);
                 alivePlayers[playerPosInArray] = players[i];
                 playerPosInArray++;
             }

@@ -31,13 +31,16 @@ int server_handling (int server_socket) {
         // COMMENT THIS OUT LATER
         printf("%d bytes written [LINE 28]\n", bytes);
     
-        //
+        //THIS IS READING THE CONFIRMATION FROM THE SERVER SIDE 
         bytes = read(server_socket, buff, BUFFER_SIZE);
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
         printf("%s %d\n", buff, bytes); 
 
         char * data = malloc(sizeof(char) * BUFFER_SIZE);
+
+        //THIS IS FROM THE CLIENT HANDLING FUNCTION IN SERVER 
+        //NVM ... WHAT IS THIS EVEN READING?????? 
         bytes = read(server_socket, data, BUFFER_SIZE); 
         checkConnection(bytes, "could not read [LINE 41]"); 
 
@@ -56,9 +59,12 @@ int server_handling (int server_socket) {
         // should we have error checking to be local? 
 
         // it would be cool to have a help command here! 
+
+        //WRITE THE BUFF MESSAGE 
         bytes = write(server_socket, buff, BUFFER_SIZE); 
         checkConnection(bytes, "could not write to the server socket [LINE 62]"); 
 
+        //READ THE SERVER RESPONSE 
         bytes = read(server_socket, buff, BUFFER_SIZE); 
         checkConnection(bytes, "could not read from server socket [LINE 65]"); 
 
