@@ -48,6 +48,9 @@ I merge all of the changes from the weekend in class as well as worked on a way 
 2024-01-09 Started work on forking server
 I fixed all the small problems with server and client due to extra reads and writes. Then I worked on the subserver, first creating the subserver logic then creating the forking. I created a way to find all the players still playing and put them into an array so that it was easier to fork. Then I worked on forking and fixed problems due to bad connection errnos. ~2 hours 15 minutes
 
+2024-01-09 Finished making server
+I completed the subserver so that it could send a message telling the client when it lost the game. I also created a way for the server to send a message to the client telling it when they were the winner of the whole tournament. Then I spent the rest of the time debugging the server and client. ~1 hour 30 minutes
+
 Aareeb Jamil:
 
 2024-01-04 Edited proposal
@@ -88,9 +91,9 @@ Wrote a helper function for future use (numUsers); tried fixing bugs where the s
 2024-01-09 2:20 PM Finished basic work on game
 Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again ~30 minutes
 
-2024-01-10 12:59 AM 
-Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes 
+2024-01-10 12:59 AM
+Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes
 
-2024-01-10 2:20 PM 
+2024-01-10 2:20 PM
 
 ```
