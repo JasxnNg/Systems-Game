@@ -63,6 +63,7 @@ struct clientDetails* createClient(int connection, char * buff){
     p -> connection = connection;
     p -> guess = 0;
     p -> wins = 0;
+    p -> isAlive = 0;
     strcpy(p -> identifier, buff); 
     return p;
 }
