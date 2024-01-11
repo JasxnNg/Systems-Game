@@ -190,11 +190,8 @@ int main(){
             // THIS FUNCTION DOES NOT WORK PROPERLY  
             // TESTED BY STOPPING THE PLAYERS 
             // PLEASE CHECK THIS SOON
-
             //FOR SOME REASON THIS IS CHECKED AFTER??? IN LINE 41 
             if(players[i] -> isAlive){
-
-                
                 printf("Player is still connnected %d\n", playerConnections[i]);
                 alivePlayers[playerPosInArray] = players[i];
                 playerPosInArray++;
