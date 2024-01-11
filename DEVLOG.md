@@ -65,6 +65,9 @@ In class, I worked on the structure of the main game function and used the retri
 2023-01-09 Fixing randFile
 I was absent today due to being sick. randFile had a bug where it would sometimes return the "." or ".." entry. I changed game such that randFile is called until it doesn't return those entries.
 
+2023-01-10 Tested randFile and adding RPS
+I hadn't tested randFile so now I have. It works as intended. I also started implementing rock paper scissors since the file guessing game code is done.
+
 Jason Ng:
 
 2024-01-03 11:32 PM Reformatted devlog
