@@ -91,9 +91,12 @@ Wrote a helper function for future use (numUsers); tried fixing bugs where the s
 2024-01-09 2:20 PM Finished basic work on game
 Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again ~30 minutes
 
-2024-01-10 12:59 AM
-Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes
+2024-01-10 12:59 AM Exit status and error messaging 
+Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes 
 
-2024-01-10 2:20 PM
+2024-01-10 2:20 PM Commenting code + check connection function 
+Worked on documenting code ; created function check connection and tested server and client; server works with different users connecting onto homer.stuy.edu ; GOOD SIGN ~30 mins 
 
+2024-01-10 7:19 PM More documentation
+Continued to document everything and try to trace through all of our code; LINE 41 code takes from where???? Need to ask them about it 
 ```

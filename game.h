@@ -31,4 +31,5 @@ struct clientDetails {
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);
 struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2);
+struct clientDetails* rockPaperScissors (struct clientDetails* client1, struct clientDetails* client2);
 #endif
