@@ -119,12 +119,52 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 }
 
 struct clientDetails* rockPaperScissors (struct clientDetails* client1, struct clientDetails* client2) { //rename for compiling reasons 
-  
+  char msg[BUFFER_SIZE] = "rock = 0; paper = 1; scissors = 2\n";
+  write(client1->connection, msg, BUFFER_SIZE);
+  write(client2->connection, msg, BUFFER_SIZE);
+
   struct clientDetails * firstGuess = retrieveNumber(client1, client2);
   struct clientDetails * secondGuess = retrieveNumber(client1, client2);
-  
+
   int guess1 = firstGuess->guess;
   int guess2 = secondGuess->guess;
+
+  if (guess1 == 0) {
+    if (guess2 == 1) {
+      return secondGuess; 
+    }
+    else if (guess2 == 2) {
+      return firstGuess;
+    }
+    else {
+      return NULL;
+    }
+  }
+  else if (guess1 == 1) {
+    if (guess2 == 2) {
+      return secondGuess; 
+    }
+    else if (guess2 == 0) {
+      return firstGuess;
+    }
+    else {
+      return NULL;
+    }
+  }
+  else if (guess1 == 2) {
+    if (guess2 == 0) {
+      return secondGuess; 
+    }
+    else if (guess2 == 1) {
+      return firstGuess;
+    }
+    else {
+      return NULL;
+    }
+  }
+  else {
+    return NULL;
+  }
 }
 
 // fork should handle each game but main server should handle the distribution of code 

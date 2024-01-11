@@ -82,7 +82,7 @@ int isPlaying(int playerConnection){
     }
 }
 
-int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
+int client_handling (struct clientDetails* client1, struct clientDetails* client2, int whichGame) {
     printf("Sending message to start game\n");
     int writeBytes;
     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
@@ -95,10 +95,25 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
         // reminder need to check writeBytes for == 0 if connection is broken
     
     struct clientDetails* winner = malloc(sizeof(struct clientDetails));
-    winner = game(client1, client2);
+    if (whichGame == 0) {
+      winner = game(client1, client2);
+    }
+    else if (whichGame == 1) {
+      winner = rockPaperScissors(client1, client2);
+    }
+    char* loseFlag = malloc(BUFFER_SIZE); 
+    char* winFlag = malloc(BUFFER_SIZE); 
+    winFlag[0] = '1';
+    loseFlag[0] = '0';
     if(winner -> connection == client1 -> connection){
+        write(connection2, loseFlag, BUFFER_SIZE);
+        write(connection1, winFlag, BUFFER_SIZE);
+        free(winner);
         return 0;
     } else{
+        write(connection1, loseFlag, BUFFER_SIZE);
+        write(connection2, winFlag, BUFFER_SIZE);
+        free(winner);
         return 1;
     }
 }
@@ -197,19 +212,30 @@ int main(){
             if(p == 0){
                 //THE SUBSERVER CAN'T EVEN PRINT HERE 
                 printf("Starting game as the subserver\n");
-                int exiting = client_handling(alivePlayers[0], alivePlayers[1]); 
+                int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1]); 
                 printf("%d\n", exiting ); 
                 exit(exiting);
             }
         }
         if(p != 0){
-            int status;
-            wait(&status);
-            printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
+            for(int i = 0; i < numberOfServers; i++){
+                int status;
+                wait(&status);
+                printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
+            }
         }
         numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
     }
-
+    printf("Game over!\n");
+    for(int i = 0; i < playersJoined; i++){
+        printf("in the loop\n");
+        if(isPlaying(playerConnections[i])){
+            printf("The winning player is %s, congratulation %s!\n", players[i] -> identifier, players[i] -> identifier);
+            char* winFlag = malloc(BUFFER_SIZE);
+            strcpy(winFlag, "the winner is you");
+            write(players[i] -> connection, winFlag, BUFFER_SIZE);
+        }
+    }
     // for(int i = 0; i < numOfPlayers; i++){
     //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
     //     int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);

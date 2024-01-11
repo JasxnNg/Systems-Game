@@ -46,7 +46,10 @@ Allowed the server to start a match whenever it wanted even if max number of pla
 I merge all of the changes from the weekend in class as well as worked on a way to prevent the client from prompting for an answer before the match started. At home, I completed this and started work on what the forking server would do but not the actual forking. I spent a large amount of time fixing a bug with socket but could not fix retrieveNumber. ~3 hours 30 minutes
 
 2024-01-09 Started work on forking server
-I fixed all the small problems with server and client due to extra reads and writes. Then I worked on the subserver, first creating the subserver logic then creating the forking. I created a way to find all the players still playing and put them into an array so that it was easier to fork. Then I worked on forking and fixed problems due to bad connection errnos. ~2 15 hours
+I fixed all the small problems with server and client due to extra reads and writes. Then I worked on the subserver, first creating the subserver logic then creating the forking. I created a way to find all the players still playing and put them into an array so that it was easier to fork. Then I worked on forking and fixed problems due to bad connection errnos. ~2 hours 15 minutes
+
+2024-01-09 Finished making server
+I completed the subserver so that it could send a message telling the client when it lost the game. I also created a way for the server to send a message to the client telling it when they were the winner of the whole tournament. Then I spent the rest of the time debugging the server and client. ~1 hour 30 minutes
 
 Aareeb Jamil:
 
@@ -61,6 +64,9 @@ In class, I worked on the structure of the main game function and used the retri
 
 2023-01-09 Fixing randFile
 I was absent today due to being sick. randFile had a bug where it would sometimes return the "." or ".." entry. I changed game such that randFile is called until it doesn't return those entries.
+
+2023-01-10 Tested randFile and adding RPS
+I hadn't tested randFile so now I have. It works as intended. I also started implementing rock paper scissors since the file guessing game code is done.
 
 Jason Ng:
 
