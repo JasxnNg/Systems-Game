@@ -3,6 +3,7 @@
 #include <sys/select.h> // needed for the retrieve files
 
 
+
 void serverConnection (int i, char * message) {
     if (i == 0) {
         printf("Client lost connection with the server!\n"); 
@@ -69,7 +70,8 @@ struct clientDetails* createClient(int connection, char * buff){
 
 int isPlaying(int playerConnection){
     char* test = malloc(BUFFER_SIZE);
-    
+    int po = read(playerConnection, test, BUFFER_SIZE);
+    printf("player connection %d ; %d %d \n", playerConnection, po, BUFFER_SIZE);
     if(read(playerConnection, test, BUFFER_SIZE) == 0){
         free(test); 
         return 0;

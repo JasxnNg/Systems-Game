@@ -96,4 +96,7 @@ Worked on documenting code ; created function check connection and tested server
 
 2024-01-10 7:19 PM More documentation
 Continued to document everything and try to trace through all of our code; LINE 41 code takes from where???? Need to ask them about it 
+
+2024-01-11 2:05 PM 
+Working on sem.c to add new features to our beautiful project 
 ```
