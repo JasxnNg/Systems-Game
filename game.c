@@ -118,7 +118,7 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 
 }
 
-struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2) {
+struct clientDetails* rockPaperScissors (struct clientDetails* client1, struct clientDetails* client2) { //rename for compiling reasons 
   
   struct clientDetails * firstGuess = retrieveNumber(client1, client2);
   struct clientDetails * secondGuess = retrieveNumber(client1, client2);
