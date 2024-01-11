@@ -128,8 +128,8 @@ int main(){
     pid_t p;
 
     //malloc the rest 
-    int playerConnections[2];
-    struct clientDetails* players[2];
+    int playerConnections[maxPlayerCount];
+    struct clientDetails* players[maxPlayerCount];
     int listen_socket = server_setup();
 
     // THIS LOOP IS TO GET OBTAIN PLAYERS 
@@ -217,7 +217,8 @@ int main(){
                 printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
             }
         }
-        numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
+        numOfPlayers = numOfPlayers % 2 + numOfPlayers/2;
+        printf("%d\n", numOfPlayers);
     }
     printf("Game over!\n");
     for(int i = 0; i < playersJoined; i++){
