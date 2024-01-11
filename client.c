@@ -2,9 +2,6 @@
 #include "game.h"
 #include <pwd.h> 
 
-// int fdError(int errInt, int size, ) {
-//     if (errInt )
-// } 
 
 
 void checkConnection (int server_socket, char * message) {
@@ -19,14 +16,14 @@ void checkConnection (int server_socket, char * message) {
 
 
 int server_handling (int server_socket) {
-    int flag; // this will be used to identify the winner
-    flag = 1;  
+    int flag = 1; // this will be used to identify the winner
     char * buff = malloc (sizeof(char) * BUFFER_SIZE); 
     // maybe add a struct here? 
     // this can help identify which one this is from? 
+
     while ( flag) {
-        // we should probably make the read in a struct as well 
-        // this is to know when to stop and how to win
+        
+        // THIS READ IS TO CHECK 
         strcpy(buff, "Ready to play");
         int bytes = write(server_socket, buff, BUFFER_SIZE);
         checkConnection(bytes, "could not write to the server socket [LINE 28]"); 
@@ -34,7 +31,7 @@ int server_handling (int server_socket) {
         // COMMENT THIS OUT LATER
         printf("%d bytes written [LINE 28]\n", bytes);
     
-
+        //
         bytes = read(server_socket, buff, BUFFER_SIZE);
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
@@ -108,7 +105,9 @@ int main (int argc, char *argv[]) {
 
     int server_socket = client_tcp_handshake(IP);
     printf("user: %s joined server successfully!\n", userName);
-    int bytes = write(server_socket, userName, NAME_SIZE);  // write the user to the server
+
+    // WRITE THE USER TO THE SERVER 
+    int bytes = write(server_socket, userName, NAME_SIZE);  
     err(bytes, "could not write the bytes to the server socket"); 
     // add logic for everything here 
     server_handling (server_socket); 

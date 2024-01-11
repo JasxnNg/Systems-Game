@@ -2,6 +2,7 @@
 #include "game.h"
 #include <sys/select.h> // needed for the retrieve files
 
+// choose the amount of users that you want for this function 
 int chooseUser () {
     char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
     printf("do you want to use the default usernames? yes or no: ");
@@ -21,7 +22,7 @@ int chooseUser () {
 
     }
     else {
-        printf("please write yes or no\n"); 
+        printf("please write yes or no "); 
         fflush(stdout);
     
     }
@@ -89,6 +90,8 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
 // AUTOMATICALLY GIVE THE WIN IF SOMEONE LOSES CONNECTION
 
 int main(){
+
+    // INIT ALL VARIABLES 
     // int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
@@ -101,6 +104,8 @@ int main(){
     int playerConnections[2];
     struct clientDetails* players[2];
     int listen_socket = server_setup();
+
+    // THIS LOOP IS TO GET OBTAIN PLAYERS 
     while(!matchStarted && numOfPlayers < maxPlayerCount){
         fd_set read_fds;
         char buff[BUFFER_SIZE];
@@ -124,13 +129,15 @@ int main(){
         if(FD_ISSET(listen_socket, &read_fds)){
 
             playerConnections[numOfPlayers] = server_tcp_handshake(listen_socket);
+
+            //THIS READ IS TO READ THE USERNAMES 
             int readBytes = read(playerConnections[numOfPlayers], buff, sizeof(buff));
             if (readBytes <= 0) {
                 perror("could not create the connection\n"); 
             }
             // err(readBytes, "could not create the connection"); 
 
-
+            //CREATE THE CLIENTS WITH USERNAME + SERVER SOCKET
             players[numOfPlayers] = createClient(playerConnections[numOfPlayers], buff);
             
             //COMMENT THIS OUT AFTERWARD
@@ -141,20 +148,27 @@ int main(){
         }
 
     }
+
+
     printf("The current number of players is %d\n", numOfPlayers);
-    playersJoined = numOfPlayers;
+    playersJoined = numOfPlayers; 
     while(numOfPlayers > 1){
         int numberOfServers = numOfPlayers / 2;
         int playerPosInArray = 0;
         struct clientDetails* alivePlayers[numOfPlayers];
         printf("Completed step 1\n");
         printf("Working on finding alive players\n");
+
         for(int i = 0; i < playersJoined; i++){
             if(isPlaying(playerConnections[i])){
+
+                
                 printf("Player is still connnected\n");
                 alivePlayers[playerPosInArray] = players[i];
                 playerPosInArray++;
             }
+            // we should have logic that handles the server sockets; we should close them if they aren't in use? or at least
+            // remove from the alivePlayers 
         }
         printf("Completed step 2\n");
         for(int i = 0; i < numberOfServers; i++){

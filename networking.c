@@ -15,10 +15,10 @@ int client_tcp_handshake(char *server_address)
   int serverd;
   // create the socket
   serverd = socket(results->ai_family, results->ai_socktype, 0);
-  err(serverd, "Line 17\n");
+  err(serverd, "failed to init socket [LINE 17]\n");
   // connect to the server
   int serverSocket = connect(serverd, results->ai_addr, results->ai_addrlen);
-  err(serverSocket, "Connecting to server");
+  err(serverSocket, "failed to connect to the server [LINE 20]");
   free(hints);
   freeaddrinfo(results);
 
@@ -39,7 +39,7 @@ int server_tcp_handshake(int listen_socket)
   struct sockaddr_storage client_address;
   sockSize = sizeof(client_address);
   client_socket = accept(listen_socket, (struct sockaddr *)&client_address, &sockSize);
-  err(client_socket, "Accepting Connection");
+  err(client_socket, "failed to accept connection [LINE 41]");
   return client_socket;
 }
 
@@ -60,7 +60,7 @@ int server_setup()
   // this code should get around the address in use error
   int yes = 1;
   int sockOpt = setsockopt(clientd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(yes));
-  err(sockOpt, "sockopt  error");
+  err(sockOpt, "sockopt  error [LINE 62]");
 
   // bind the socket to address and port
   bind(clientd, results->ai_addr, results->ai_addrlen);
