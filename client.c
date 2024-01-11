@@ -20,19 +20,17 @@ int server_handling (int server_socket) {
     char * buff = malloc (sizeof(char) * BUFFER_SIZE); 
     // maybe add a struct here? 
     // this can help identify which one this is from? 
-
     while ( flag) {
-        
         // THIS READ IS TO CHECK 
-        strcpy(buff, "Ready to play");
-        int bytes = write(server_socket, buff, BUFFER_SIZE);
-        checkConnection(bytes, "could not write to the server socket [LINE 28]"); 
-        
-        // COMMENT THIS OUT LATER
-        printf("%d bytes written [LINE 28]\n", bytes);
+        // strcpy(buff, "Ready to play");
+        // int bytes = write(server_socket, buff, BUFFER_SIZE);
+        // checkConnection(bytes, "could not write to the server socket [LINE 28]"); 
+        printf("Waiting for round to start\n");
+        // // COMMENT THIS OUT LATER
+        // printf("%d bytes written [LINE 28]\n", bytes);
     
         //THIS IS READING THE CONFIRMATION FROM THE SERVER SIDE 
-        bytes = read(server_socket, buff, BUFFER_SIZE);
+        int bytes = read(server_socket, buff, BUFFER_SIZE);
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
         printf("%s %d\n", buff, bytes); 

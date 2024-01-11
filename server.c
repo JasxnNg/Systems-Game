@@ -63,7 +63,7 @@ struct clientDetails* createClient(int connection, char * buff){
     p -> connection = connection;
     p -> guess = 0;
     p -> wins = 0;
-    p -> isAlive = 0;
+    p -> isAlive = 1;
     strcpy(p -> identifier, buff); 
     return p;
 }
@@ -84,7 +84,9 @@ int isPlaying(int playerConnection){
 int client_handling (struct clientDetails* client1, struct clientDetails* client2) {
     printf("Sending message to start game\n");
     int writeBytes;
-    char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+    char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.\0";
+    int connection1 = client1 -> connection;\
+    int connection2 = client2 -> connection;
     
     writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
     serverConnection(writeBytes, "failed to write to the client"); 
@@ -102,10 +104,12 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
     if(winner -> connection == client1 -> connection){
         write(connection2, loseFlag, BUFFER_SIZE);
         write(connection1, winFlag, BUFFER_SIZE);
+        client2 -> isAlive = 0;
         return 0;
     } else{
         write(connection1, loseFlag, BUFFER_SIZE);
         write(connection2, winFlag, BUFFER_SIZE);
+        client1 -> isAlive = 0;
         return 1;
     }
 }
@@ -119,7 +123,7 @@ int main(){
     int matchStarted = 0;
     int numOfPlayers = 0;
     int playersJoined = 0;
-    int maxPlayerCount = 2;
+    int maxPlayerCount = 16;
     //might be able to add a semaphore here  
     pid_t p;
 
@@ -188,7 +192,7 @@ int main(){
             // PLEASE CHECK THIS SOON
 
             //FOR SOME REASON THIS IS CHECKED AFTER??? IN LINE 41 
-            if(isPlaying(playerConnections[i])){
+            if(players[i] -> isAlive){
 
                 
                 printf("Player is still connnected %d\n", playerConnections[i]);
@@ -221,7 +225,7 @@ int main(){
     printf("Game over!\n");
     for(int i = 0; i < playersJoined; i++){
         printf("in the loop\n");
-        if(isPlaying(playerConnections[i])){
+        if(players[i] -> isAlive){
             printf("The winning player is %s, congratulation %s!\n", players[i] -> identifier, players[i] -> identifier);
             char* winFlag = malloc(BUFFER_SIZE);
             strcpy(winFlag, "the winner is you");
