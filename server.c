@@ -104,12 +104,10 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
     if(winner -> connection == client1 -> connection){
         write(connection2, loseFlag, BUFFER_SIZE);
         write(connection1, winFlag, BUFFER_SIZE);
-        client2 -> isAlive = 0;
         return 0;
     } else{
         write(connection1, loseFlag, BUFFER_SIZE);
         write(connection2, winFlag, BUFFER_SIZE);
-        client1 -> isAlive = 0;
         return 1;
     }
 }
@@ -206,19 +204,30 @@ int main(){
                 //THE SUBSERVER CAN'T EVEN PRINT HERE 
                 printf("Starting game as the subserver\n");
                 int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1]); 
-                printf("%d\n", exiting ); 
-                exit(exiting);
+                if(exiting == 0){
+                    exit(alivePlayers[2 * i + 1] -> connection);
+                } else{
+                    exit(alivePlayers[2 * i] -> connection);
+                }
             }
         }
         if(p != 0){
             for(int i = 0; i < numberOfServers; i++){
                 int status;
                 wait(&status);
+                for(int i = 0; i < playersJoined; i++){
+                    if(playerConnections[i] == WEXITSTATUS(status)){
+                        players[i] -> isAlive = 0;
+                        printf("Unaliving a player\n");
+                    }
+                }
                 printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
             }
         }
-        numOfPlayers = numOfPlayers % 2 + numOfPlayers/2;
+        printf("%d\n", numOfPlayers - numberOfServers);
+        numOfPlayers -= numberOfServers;
         printf("%d\n", numOfPlayers);
+        sleep(1);
     }
     printf("Game over!\n");
     for(int i = 0; i < playersJoined; i++){
