@@ -25,6 +25,7 @@ game.o: game.c
 	@gcc -c game.c  
 
 clean: 
+	@rm -f wins.dat
 	@rm -f ser
 	@rm -f cli 
 	@rm -f *.o 

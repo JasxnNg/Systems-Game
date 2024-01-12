@@ -25,7 +25,7 @@ int server_handling (int server_socket) {
         // strcpy(buff, "Ready to play");
         // int bytes = write(server_socket, buff, BUFFER_SIZE);
         // checkConnection(bytes, "could not write to the server socket [LINE 28]"); 
-        printf("Waiting for round to start\n");
+        // printf("Waiting for round to start\n");
         // // COMMENT THIS OUT LATER
         // printf("%d bytes written [LINE 28]\n", bytes);
     
@@ -75,11 +75,6 @@ int server_handling (int server_socket) {
         if(flag == 0){
             printf("You've lost :(\n");
         } 
-        // free(data); 
-
-        // bytes = read(server_socket, buff, BUFFER_SIZE); 
-        // err(bytes, "could not read the bytes");
-        // printf("%s\n", buff);
     }
     free(buff); 
 
