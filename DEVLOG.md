@@ -51,6 +51,9 @@ I fixed all the small problems with server and client due to extra reads and wri
 2024-01-10 Finished making server
 I completed the subserver so that it could send a message telling the client when it lost the game. I also created a way for the server to send a message to the client telling it when they were the winner of the whole tournament. Then I spent the rest of the time debugging the server and client. ~1 hour 30 minutes
 
+2024-01-11 Server now runs with odd number of player
+I changed out the isPlaying function for a attributes in the clientDetails to make it easier to detect defeated players. I suffered through a lot of bugs but I eventually got it working. ~2 hour 30 minutes
+
 Aareeb Jamil:
 
 2024-01-04 Edited proposal
