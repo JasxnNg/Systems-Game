@@ -122,6 +122,11 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
 // AUTOMATICALLY GIVE THE WIN IF SOMEONE LOSES CONNECTION
 
 int main(){
+    printf("Which game would you like to play? Enter 0 for file size guessing game or 1 for rock paper scissors: ");
+    char buff[BUFFER_SIZE];
+    fgets(buff, BUFFER_SIZE, stdin);
+    int whichGame;
+    sscanf(buff, "%d", &whichGame);
 
     // INIT ALL VARIABLES 
     // int choose = chooseUser (); 
@@ -210,7 +215,7 @@ int main(){
             if(p == 0){
                 //THE SUBSERVER CAN'T EVEN PRINT HERE 
                 printf("Starting game as the subserver\n");
-                int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1]); 
+                int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1], whichGame); 
                 if(exiting == 0){
                     exit(alivePlayers[2 * i + 1] -> connection);
                 } else{
