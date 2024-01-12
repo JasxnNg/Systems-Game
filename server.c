@@ -48,7 +48,7 @@ void recordWins (char * user, int currentWins) {
         write(recordingFile, reader, sizeof(struct writeFile)); 
         
     }
-    close(recordingFile)
+    close(recordingFile);
     // make a struct here 
 
 } 
@@ -300,7 +300,7 @@ int main(){
             char* winFlag = malloc(BUFFER_SIZE);
             strcpy(winFlag, "you are the winner!");
             write(players[i] -> connection, winFlag, BUFFER_SIZE);
-            recordWins(players[i]->user, 1); // add 1 win 
+            recordWins(players[i]->identifier, 1); // add 1 win 
         }
     }
     readWins(); 
