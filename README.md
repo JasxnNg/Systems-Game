@@ -12,4 +12,7 @@ Explain what is this project.
 ### Instructions:
 
 How does the user install/compile/run the program.
+
+
 How does the user interact with this program?
+One user hosts the program (in this case, it needs to be on homer/home computer) 
