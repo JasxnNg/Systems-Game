@@ -2,6 +2,17 @@
 #include "game.h"
 #include <sys/select.h> // needed for the retrieve files
 
+void readWins() {
+    int recordingFile = open("wins.dat", O_RDONLY); 
+    if (recordingFile < 0 )
+        perror("could not create the file");
+    struct writeFile * reader = malloc(sizeof (struct writeFile)); 
+    while (read(recordingFile, reader, sizeof(struct writeFile))) {
+        printf("name: %s wins: %d\n", reader->name, reader->wins); 
+    }
+    close(recordingFile); 
+}
+
 void recordWins (char * user, int currentWins) {
     int recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666); // create the file 
     if (recordingFile < 0 )

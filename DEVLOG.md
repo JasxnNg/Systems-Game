@@ -108,5 +108,5 @@ Working on sem.c to add the use of semaphores to our project ~30 minutes
 
 2024-01-11 10:16 PM No Semaphores 
 Realized that semaphores would be useless here because we would not be using the same machine ~20 minutes
-
+Worked on a way to add storing data to the project; storing wins after every single iteration! ~40 minutes 
 ```
