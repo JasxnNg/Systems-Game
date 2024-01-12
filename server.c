@@ -2,7 +2,20 @@
 #include "game.h"
 #include <sys/select.h> // needed for the retrieve files
 
+void recordWins (char * user, int currentWins) {
+    int recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666); // create the file 
+    if (recordingFile < 0 )
+        perror("could not create the file");
+    // struct writeFile * update = malloc(sizeof(struct writeFile)); 
+    // update->wins = currentWins; 
+    // update->name = user; 
+    struct writeFile * reader = malloc(sizeof (struct writeFile)); 
+    while (read(recordingFile, reader, sizeof(struct writeFile))) {
+        if (strcmp(reader->name, update->))
+    }
+    // make a struct here 
 
+} 
 
 void serverConnection (int i, char * message) {
     if (i == 0) {
@@ -249,7 +262,7 @@ int main(){
         if(players[i] -> isAlive){
             printf("The winning player is %s, congratulations %s!\n", players[i] -> identifier, players[i] -> identifier);
             char* winFlag = malloc(BUFFER_SIZE);
-            strcpy(winFlag, "the winner is you");
+            strcpy(winFlag, "you are the winner!");
             write(players[i] -> connection, winFlag, BUFFER_SIZE);
         }
     }

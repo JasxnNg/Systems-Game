@@ -29,6 +29,11 @@ struct clientDetails {
   int isAlive;
   char identifier[NAME_SIZE];
 };
+
+struct writeFile {
+  int wins; 
+  char name[NAME_SIZE]; 
+};
 struct fileinfo randFile();
 struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clientDetails* client2);
 struct clientDetails* game(struct clientDetails* client1, struct clientDetails* client2);
