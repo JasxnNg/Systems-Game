@@ -9,9 +9,32 @@ void recordWins (char * user, int currentWins) {
     // struct writeFile * update = malloc(sizeof(struct writeFile)); 
     // update->wins = currentWins; 
     // update->name = user; 
+    int i = 0; // this is to keep track of indexing 
+    int totalWins = 0; 
     struct writeFile * reader = malloc(sizeof (struct writeFile)); 
     while (read(recordingFile, reader, sizeof(struct writeFile))) {
-        if (strcmp(reader->name, update->))
+        if (strcmp(reader->name, user) == 0){
+            totalWins = currentWins + reader->wins; 
+            break; 
+        }
+        i++; 
+    }
+    close(recordingFile); 
+    recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666);
+    lseek(recordingFile, sizeof(struct writeFile) * i, 0); 
+
+    if (totalWins != 0 ) {
+        strcpy (reader->name, user); 
+        reader->wins = totalWins; 
+        write(recordingFile, reader, sizeof(struct writeFile)); 
+
+        
+    }
+    else {
+        strcpy (reader->name, user); 
+        reader->wins = currentWins; 
+        write(recordingFile, reader, sizeof(struct writeFile)); 
+        
     }
     // make a struct here 
 
