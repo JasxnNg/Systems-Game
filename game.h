@@ -26,6 +26,7 @@ struct clientDetails {
   int guess;
   int wins;
   int connection;
+  int isAlive;
   char identifier[NAME_SIZE];
 };
 struct fileinfo randFile();

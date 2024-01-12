@@ -64,6 +64,7 @@ struct clientDetails* createClient(int connection, char * buff){
     p -> connection = connection;
     p -> guess = 0;
     p -> wins = 0;
+    p -> isAlive = 1;
     strcpy(p -> identifier, buff); 
     return p;
 }
@@ -85,7 +86,9 @@ int isPlaying(int playerConnection){
 int client_handling (struct clientDetails* client1, struct clientDetails* client2, int whichGame) {
     printf("Sending message to start game\n");
     int writeBytes;
-    char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
+    char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.\0";
+    int connection1 = client1 -> connection;\
+    int connection2 = client2 -> connection;
     
     writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
     serverConnection(writeBytes, "failed to write to the client"); 
@@ -121,19 +124,24 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
 // AUTOMATICALLY GIVE THE WIN IF SOMEONE LOSES CONNECTION
 
 int main(){
+    printf("Which game would you like to play? Enter 0 for file size guessing game or 1 for rock paper scissors: ");
+    char buff[BUFFER_SIZE];
+    fgets(buff, BUFFER_SIZE, stdin);
+    int whichGame;
+    sscanf(buff, "%d", &whichGame);
 
     // INIT ALL VARIABLES 
     // int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
     int playersJoined = 0;
-    int maxPlayerCount = 2;
+    int maxPlayerCount = 16;
     //might be able to add a semaphore here  
     pid_t p;
 
     //malloc the rest 
-    int playerConnections[2];
-    struct clientDetails* players[2];
+    int playerConnections[maxPlayerCount];
+    struct clientDetails* players[maxPlayerCount];
     int listen_socket = server_setup();
 
     // THIS LOOP IS TO GET OBTAIN PLAYERS 
@@ -194,11 +202,8 @@ int main(){
             // THIS FUNCTION DOES NOT WORK PROPERLY  
             // TESTED BY STOPPING THE PLAYERS 
             // PLEASE CHECK THIS SOON
-
             //FOR SOME REASON THIS IS CHECKED AFTER??? IN LINE 41 
-            if(isPlaying(playerConnections[i])){
-
-                
+            if(players[i] -> isAlive){
                 printf("Player is still connnected %d\n", playerConnections[i]);
                 alivePlayers[playerPosInArray] = players[i];
                 playerPosInArray++;
@@ -212,24 +217,36 @@ int main(){
             if(p == 0){
                 //THE SUBSERVER CAN'T EVEN PRINT HERE 
                 printf("Starting game as the subserver\n");
-                int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1]); 
-                printf("%d\n", exiting ); 
-                exit(exiting);
+                int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1], whichGame); 
+                if(exiting == 0){
+                    exit(alivePlayers[2 * i + 1] -> connection);
+                } else{
+                    exit(alivePlayers[2 * i] -> connection);
+                }
             }
         }
         if(p != 0){
             for(int i = 0; i < numberOfServers; i++){
                 int status;
                 wait(&status);
+                for(int i = 0; i < playersJoined; i++){
+                    if(playerConnections[i] == WEXITSTATUS(status)){
+                        players[i] -> isAlive = 0;
+                        printf("Unaliving a player\n");
+                    }
+                }
                 printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
             }
         }
-        numOfPlayers = numOfPlayers/2 + numOfPlayers % 2;
+        printf("%d\n", numOfPlayers - numberOfServers);
+        numOfPlayers -= numberOfServers;
+        printf("%d\n", numOfPlayers);
+        sleep(1);
     }
     printf("Game over!\n");
     for(int i = 0; i < playersJoined; i++){
         printf("in the loop\n");
-        if(isPlaying(playerConnections[i])){
+        if(players[i] -> isAlive){
             printf("The winning player is %s, congratulation %s!\n", players[i] -> identifier, players[i] -> identifier);
             char* winFlag = malloc(BUFFER_SIZE);
             strcpy(winFlag, "the winner is you");
