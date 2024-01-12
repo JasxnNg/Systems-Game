@@ -101,8 +101,12 @@ Added a bunch of error messages and figured out a way to return the right exit s
 Worked on documenting code ; created function check connection and tested server and client; server works with different users connecting onto homer.stuy.edu ; GOOD SIGN ~30 mins 
 
 2024-01-10 7:19 PM More documentation
-Continued to document everything and try to trace through all of our code; LINE 41 code takes from where???? Need to ask them about it 
+Continued to document everything and try to trace through all of our code; LINE 41 code takes from where???? Need to ask them about it 40 minutes
 
-2024-01-11 2:05 PM 
-Working on sem.c to add new features to our beautiful project 
+2024-01-11 2:05 PM Semaphores
+Working on sem.c to add the use of semaphores to our project ~30 minutes 
+
+2024-01-11 10:16 PM No Semaphores 
+Realized that semaphores would be useless here because we would not be using the same machine ~20 minutes
+
 ```

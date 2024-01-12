@@ -1,14 +1,4 @@
-#define SEMKEY 0xDEADBEEF
-
-//THIS FILE IS TO MANAGE CLIENT CONNECTIONS 
-
-union semun {
-  int val;                  //used for SETVAL
-  struct semid_ds *buf;     //used for IPC_STAT and IPC_SET
-  unsigned short  *array;   //used for SETALL
-  struct seminfo  *__buf;
-};
-
+#include "sem.h"
 
 int create_sem () {
     int semd = semget(SEMKEY, 1, IPC_CREAT | IPC_EXCL | 0666); 
@@ -26,7 +16,7 @@ int create_sem () {
 } 
 
 
-void access_data() {
+void getUpSem() {
     
   printf("attempting to access shared memory...\n");
   int semd = semget(SEMKEY, 1, 0); 
@@ -42,7 +32,7 @@ void access_data() {
 
 }
 
-void let_go() {
+void getDownSem() {
     int semd = semget(SEMKEY, 1, 0); 
     if (semd == -1) {
         printf("semaphore does not exist\n");

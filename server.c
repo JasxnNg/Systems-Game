@@ -247,7 +247,7 @@ int main(){
     for(int i = 0; i < playersJoined; i++){
         printf("in the loop\n");
         if(players[i] -> isAlive){
-            printf("The winning player is %s, congratulation %s!\n", players[i] -> identifier, players[i] -> identifier);
+            printf("The winning player is %s, congratulations %s!\n", players[i] -> identifier, players[i] -> identifier);
             char* winFlag = malloc(BUFFER_SIZE);
             strcpy(winFlag, "the winner is you");
             write(players[i] -> connection, winFlag, BUFFER_SIZE);
