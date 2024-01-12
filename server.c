@@ -118,55 +118,53 @@ struct clientDetails* createClient(int connection, char * buff){
     return p;
 }
 
-int isPlaying(int playerConnection){
-    char* test = malloc(BUFFER_SIZE);
-    int po = read(playerConnection, test, BUFFER_SIZE);
-    printf("player connection %d ; %d %d \n", playerConnection, po, BUFFER_SIZE);
-    if(read(playerConnection, test, BUFFER_SIZE) == 0){
-        free(test); 
-        return 0;
-    }
-    else{
-        free(test); 
-        return 1;
-    }
-}
-
 int client_handling (struct clientDetails* client1, struct clientDetails* client2, int whichGame) {
-    printf("Sending message to start game\n");
-    int writeBytes;
-    char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.\0";
-    int connection1 = client1 -> connection;\
-    int connection2 = client2 -> connection;
-    
-    writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
-    serverConnection(writeBytes, "failed to write to the client"); 
+    int playing = 1;
+    while(playing){
+        printf("Sending message to start game\n");
+        int writeBytes;
+        char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.\0";
+        int connection1 = client1 -> connection;\
+        int connection2 = client2 -> connection;
+        
+        writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
+        serverConnection(writeBytes, "failed to write to the client"); 
 
-    writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
-    serverConnection(writeBytes, "failed to write to the client"); 
-        // reminder need to check writeBytes for == 0 if connection is broken
-    
-    struct clientDetails* winner = malloc(sizeof(struct clientDetails));
-    if (whichGame == 0) {
-      winner = game(client1, client2);
-    }
-    else if (whichGame == 1) {
-      winner = rockPaperScissors(client1, client2);
-    }
-    char* loseFlag = malloc(BUFFER_SIZE); 
-    char* winFlag = malloc(BUFFER_SIZE); 
-    winFlag[0] = '1';
-    loseFlag[0] = '0';
-    if(winner -> connection == client1 -> connection){
-        write(connection2, loseFlag, BUFFER_SIZE);
-        write(connection1, winFlag, BUFFER_SIZE);
-        free(winner);
-        return 0;
-    } else{
-        write(connection1, loseFlag, BUFFER_SIZE);
-        write(connection2, winFlag, BUFFER_SIZE);
-        free(winner);
-        return 1;
+        writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
+        serverConnection(writeBytes, "failed to write to the client"); 
+            // reminder need to check writeBytes for == 0 if connection is broken
+        
+        struct clientDetails* winner = malloc(sizeof(struct clientDetails));
+        if (whichGame == 0) {
+        winner = game(client1, client2);
+        }
+        else if (whichGame == 1) {
+        winner = rockPaperScissors(client1, client2);
+        }
+        char* loseFlag = malloc(BUFFER_SIZE); 
+        char* winFlag = malloc(BUFFER_SIZE); 
+        char* tieFlag = malloc(BUFFER_SIZE);
+        winFlag[0] = '1';
+        loseFlag[0] = '0';
+        tieFlag[0] = '3';
+        if(winner == NULL){
+            printf("They tied!\n");
+            write(connection1, tieFlag, BUFFER_SIZE);
+            write(connection2, tieFlag, BUFFER_SIZE);
+        }
+        else if(winner -> connection == client1 -> connection){
+            write(connection2, loseFlag, BUFFER_SIZE);
+            write(connection1, winFlag, BUFFER_SIZE);
+            playing = 0;
+            free(winner);
+            return 0;
+        } else if(winner -> connection == client2 -> connection){
+            write(connection1, loseFlag, BUFFER_SIZE);
+            write(connection2, winFlag, BUFFER_SIZE);
+            free(winner);
+            playing = 0;
+            return 1;
+        }
     }
 }
 
