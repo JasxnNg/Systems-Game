@@ -303,13 +303,14 @@ int main(){
             recordWins(players[i]->identifier, 1); // add 1 win 
         }
     }
+    printf("-----LIFETIME WINS------\n"); 
     readWins(); 
     // for(int i = 0; i < numOfPlayers; i++){
     //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
     //     int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
     //     err(writeBytes, "could not write to client socket"); 
     //     printf("%d\n", writeBytes);
-    // }
+    // }        printf("Waiting for round to start\n");
     // printf("Starting Game\n");
     // printf("Waiting for first response\n");
     // struct clientDetails* responder = malloc(sizeof(struct clientDetails));
