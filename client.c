@@ -74,7 +74,9 @@ int server_handling (int server_socket) {
         sscanf(buff, "%d", &flag); 
         if(flag == 0){
             printf("You've lost :(\n");
-        } 
+        } else if(flag == 3){
+            printf("You tied, wait for another round");
+        }
     }
     free(buff); 
 
