@@ -31,7 +31,8 @@ void recordWins (char * user, int currentWins) {
         i++; 
     }
     close(recordingFile); 
-    recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666);
+    int bytes = recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666);
+    err(bytes, "failed to read"); 
     lseek(recordingFile, sizeof(struct writeFile) * i, 0); 
 
     if (totalWins != 0 ) {
@@ -47,6 +48,7 @@ void recordWins (char * user, int currentWins) {
         write(recordingFile, reader, sizeof(struct writeFile)); 
         
     }
+    close(recordingFile)
     // make a struct here 
 
 } 
@@ -298,8 +300,10 @@ int main(){
             char* winFlag = malloc(BUFFER_SIZE);
             strcpy(winFlag, "you are the winner!");
             write(players[i] -> connection, winFlag, BUFFER_SIZE);
+            recordWins(players[i]->user, 1); // add 1 win 
         }
     }
+    readWins(); 
     // for(int i = 0; i < numOfPlayers; i++){
     //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
     //     int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);

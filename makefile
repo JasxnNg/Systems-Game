@@ -28,8 +28,3 @@ clean:
 	@rm -f ser
 	@rm -f cli 
 	@rm -f *.o 
-
-semaphore: 
-	@gcc -c sem.c 
-	@gcc sem.o -o sem
-	@./sem
