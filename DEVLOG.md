@@ -59,14 +59,18 @@ I added the intended pacing of our project and our planned division of labor to 
 2024-01-05 Writing helper functions for game.c
 In the morning (before school), I planned the overall structure of game.c by adding some function headers to game.c (and game.h). In class, I created a directory called gamefiles with some random files for our file size guessing game. I also started working on countFiles() and randFile(), which are helper functions in game.c. After school, I finished writing countFiles() and randFile(), and I tested them by creating a dummy main in game.c.
 
-2023-01-08 Writing main game function
+2024-01-08 Writing main game function
 In class, I worked on the structure of the main game function and used the retrieveNumber helper function that Brian wrote. At home, I tried testing but had issues on the networking side. Now that's fine but I need to make randFile() not produce "." and ".." as results
 
-2023-01-09 Fixing randFile
+2024-01-09 Fixing randFile
 I was absent today due to being sick. randFile had a bug where it would sometimes return the "." or ".." entry. I changed game such that randFile is called until it doesn't return those entries.
 
-2023-01-10 Tested randFile and adding RPS
+2024-01-10 Tested randFile and adding RPS
 I hadn't tested randFile so now I have. It works as intended. I also started implementing rock paper scissors since the file guessing game code is done.
+
+2024-01-11 Finished Rock Paper Scissors
+In class, I finished writing the rock paper scissors function. I also edit some things server-side in order to be able to run rock paper scissors, but I didn't finish. At home, I finished editing the server and started thinking of more games to possibly implement.
+
 
 Jason Ng:
 
