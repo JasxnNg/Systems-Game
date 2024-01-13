@@ -34,6 +34,7 @@ int server_handling (int server_socket) {
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
         printf("%s %d\n", buff, bytes); 
+        printf("%d\n", strcmp(buff, "you are the winner!"));
         if(!strcmp(buff, "you are the winner!")){
             free(buff);
             return 0;
