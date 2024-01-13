@@ -54,6 +54,9 @@ I completed the subserver so that it could send a message telling the client whe
 2024-01-11 Server now runs with odd number of player
 I changed out the isPlaying function for a attributes in the clientDetails to make it easier to detect defeated players. I suffered through a lot of bugs but I eventually got it working. ~2 hour 30 minutes
 
+2024-01-12 Fixed problem with players tying and the server breaking
+I fixed a problem where if the players tied, the game broke and fixed it but could not fix the problem with the winner losing connection although I identified it as the strcmp if statement not working for some reason. ~1 hour
+
 Aareeb Jamil:
 
 2024-01-04 Edited proposal
@@ -101,22 +104,22 @@ Wrote a helper function for future use (numUsers); tried fixing bugs where the s
 2024-01-09 2:20 PM Finished basic work on game
 Finished up and cleaned up the code for game; still need to work on the case where they are equal and we should just play again ~30 minutes
 
-2024-01-10 12:59 AM Exit status and error messaging 
-Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes 
+2024-01-10 12:59 AM Exit status and error messaging
+Added a bunch of error messages and figured out a way to return the right exit status; most of the time spent was on debugging a bunch of random stuff ~30 minutes
 
-2024-01-10 2:20 PM Commenting code + check connection function 
-Worked on documenting code ; created function check connection and tested server and client; server works with different users connecting onto homer.stuy.edu ; GOOD SIGN ~30 mins 
+2024-01-10 2:20 PM Commenting code + check connection function
+Worked on documenting code ; created function check connection and tested server and client; server works with different users connecting onto homer.stuy.edu ; GOOD SIGN ~30 mins
 
 2024-01-10 7:19 PM More documentation
 Continued to document everything and try to trace through all of our code; LINE 41 code takes from where???? Need to ask them about it 40 minutes
 
 2024-01-11 2:05 PM Semaphores
-Working on sem.c to add the use of semaphores to our project ~30 minutes 
+Working on sem.c to add the use of semaphores to our project ~30 minutes
 
-2024-01-11 10:16 PM No Semaphores 
+2024-01-11 10:16 PM No Semaphores
 Realized that semaphores would be useless here because we would not be using the same machine ~20 minutes
-Worked on a way to add storing data to the project; storing wins after every single iteration! ~40 minutes 
+Worked on a way to add storing data to the project; storing wins after every single iteration! ~40 minutes
 
 2024-01-12 2:05 PM Update ReadMe + makefile
-Update makefile to remove the dat file + add update to dat file + update ReadMe.md 
+Update makefile to remove the dat file + add update to dat file + update ReadMe.md
 ```
