@@ -18,22 +18,12 @@ void checkConnection (int server_socket, char * message) {
 int server_handling (int server_socket) {
     int flag = 1; // this will be used to identify the winner
     char * buff = malloc (sizeof(char) * BUFFER_SIZE); 
-    // maybe add a struct here? 
-    // this can help identify which one this is from? 
     while ( flag) {
-        // THIS READ IS TO CHECK 
-        // strcpy(buff, "Ready to play");
-        // int bytes = write(server_socket, buff, BUFFER_SIZE);
-        // checkConnection(bytes, "could not write to the server socket [LINE 28]"); 
-        // printf("Waiting for round to start\n");
-        // // COMMENT THIS OUT LATER
-        // printf("%d bytes written [LINE 28]\n", bytes);
-    
         //THIS IS READING THE CONFIRMATION FROM THE SERVER SIDE 
         int bytes = read(server_socket, buff, BUFFER_SIZE);
         checkConnection(bytes, "could not read from the server socket [LINE 32]"); 
 
-        printf("%s %d\n", buff, bytes); 
+        printf("%s \n", buff); 
         if(!strcmp(buff, "you are the winner!")){
             free(buff);
             return 0;
@@ -45,12 +35,8 @@ int server_handling (int server_socket) {
         //NVM ... WHAT IS THIS EVEN READING?????? 
         bytes = read(server_socket, data, BUFFER_SIZE); 
         checkConnection(bytes, "could not read [LINE 41]"); 
+        printf("%s \n", data);
 
-        //COMMENT THIS OUT LATER
-        printf("%s %d [LINE 41]\n", data, bytes);
-
-        // struct clientDetails * data = malloc(sizeof(struct clientDetails)); 
-        // read(server_socket, data, sizeof (struct clientDetails)); 
         printf("enter a number: "); 
         fgets(buff, BUFFER_SIZE, stdin);
         buff = strsep(&buff, "\n"); 
