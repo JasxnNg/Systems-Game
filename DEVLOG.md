@@ -123,5 +123,8 @@ Realized that semaphores would be useless here because we would not be using the
 Worked on a way to add storing data to the project; storing wins after every single iteration! ~40 minutes
 
 2024-01-12 2:05 PM Update ReadMe + makefile
-Update makefile to remove the dat file + add update to dat file + update ReadMe.md
+Update makefile to remove the dat file + add update to dat file + update ReadMe.md 40 minutes 
+
+2024-01-14 11:57 PM Comment out code + organize things
+Commented out excess statements
 ```

@@ -62,47 +62,49 @@ void serverConnection (int i, char * message) {
 
 
 // choose the amount of users that you want for this function 
-int chooseUser () {
-    char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
-    printf("do you want to use the default usernames? yes or no: ");
-    fflush (stdout); 
+//----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
+// int chooseUser () {
+//     char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
+//     printf("do you want to use the default usernames? yes or no: ");
+//     fflush (stdout); 
 
-    while (1) {
-    fgets(buff, BUFFER_SIZE, stdin);
-    buff = strsep(&buff, "\n");
-    if (strcmp (buff, "yes") == 0 ){
-        free(buff);
-        return 1; 
+//     while (1) {
+//     fgets(buff, BUFFER_SIZE, stdin);
+//     buff = strsep(&buff, "\n");
+//     if (strcmp (buff, "yes") == 0 ){
+//         free(buff);
+//         return 1; 
 
-    }
-    else if (strcmp (buff, "no") == 0){
-        free(buff); 
-        return 2; 
+//     }
+//     else if (strcmp (buff, "no") == 0){
+//         free(buff); 
+//         return 2; 
 
-    }
-    else {
-        printf("please write yes or no "); 
-        fflush(stdout);
+//     }
+//     else {
+//         printf("please write yes or no "); 
+//         fflush(stdout);
     
-    }
+//     }
 
-    }
+//     }
  
 
-}
+// }
 
-int numUsers () {
-    char * buff = malloc(sizeof(char) * BUFFER_SIZE);
-    printf("please enter the number of users: ");
-    fflush(stdout); 
+// int numUsers () {
+//     char * buff = malloc(sizeof(char) * BUFFER_SIZE);
+//     printf("please enter the number of users: ");
+//     fflush(stdout); 
 
-    fgets(buff, BUFFER_SIZE, stdin); 
-    int numOfPlayers; 
-    sscanf(buff, "%d", &numOfPlayers);
+//     fgets(buff, BUFFER_SIZE, stdin); 
+//     int numOfPlayers; 
+//     sscanf(buff, "%d", &numOfPlayers);
 
-    free(buff); 
-    return numOfPlayers; 
-}
+//     free(buff); 
+//     return numOfPlayers; 
+// }
+// ----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
 
 struct clientDetails* createClient(int connection, char * buff){
     struct clientDetails* p = malloc(sizeof(struct clientDetails));
@@ -224,7 +226,7 @@ int main(){
     }
 
 
-    printf("The current number of players is %d\n", numOfPlayers);
+    printf("There are currently %d player(s)... game is starting\n", numOfPlayers);
     playersJoined = numOfPlayers; 
     while(numOfPlayers > 1){
         int numberOfServers = numOfPlayers / 2;
@@ -232,7 +234,7 @@ int main(){
         struct clientDetails* alivePlayers[numOfPlayers];
         for(int i = 0; i < playersJoined; i++){
             if(players[i] -> isAlive){
-                printf("Player is still connnected %d\n", playerConnections[i]);
+                // printf("Player is still connnected %d\n", playerConnections[i]);
                 alivePlayers[playerPosInArray] = players[i];
                 playerPosInArray++;
             }

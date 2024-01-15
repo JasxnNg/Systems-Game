@@ -102,9 +102,9 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   struct clientDetails * secondGuess = retrieveNumber(client1, client2); 
 
   int guess1 = abs(fileSize - firstGuess->guess); 
-  printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
+  // printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
   int guess2 = abs(fileSize - secondGuess->guess); 
-  printf("GUESS2 FILE TABLE: %d; GUESS2 %d\n", client2->connection, guess2); 
+  // printf("GUESS2 FILE TABLE: %d; GUESS2 %d\n", client2->connection, guess2); 
 
   free(msg); 
   

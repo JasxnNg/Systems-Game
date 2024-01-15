@@ -31,7 +31,7 @@ int client_tcp_handshake(char *server_address)
  */
 int server_tcp_handshake(int listen_socket)
 {
-  printf("Waiting for connection\n");
+  // printf("Waiting for connection\n");
   int client_socket;
   // accept the client connection
   int clientSocket;
