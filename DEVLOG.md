@@ -126,5 +126,5 @@ Worked on a way to add storing data to the project; storing wins after every sin
 Update makefile to remove the dat file + add update to dat file + update ReadMe.md 40 minutes 
 
 2024-01-14 11:57 PM Comment out code + organize things
-Commented out excess statements
+Commented out excess statements; ended up not using chooseUser() and numUser() ~10 minutes
 ```

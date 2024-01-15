@@ -61,51 +61,6 @@ void serverConnection (int i, char * message) {
 }
 
 
-// choose the amount of users that you want for this function 
-//----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
-// int chooseUser () {
-//     char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
-//     printf("do you want to use the default usernames? yes or no: ");
-//     fflush (stdout); 
-
-//     while (1) {
-//     fgets(buff, BUFFER_SIZE, stdin);
-//     buff = strsep(&buff, "\n");
-//     if (strcmp (buff, "yes") == 0 ){
-//         free(buff);
-//         return 1; 
-
-//     }
-//     else if (strcmp (buff, "no") == 0){
-//         free(buff); 
-//         return 2; 
-
-//     }
-//     else {
-//         printf("please write yes or no "); 
-//         fflush(stdout);
-    
-//     }
-
-//     }
- 
-
-// }
-
-// int numUsers () {
-//     char * buff = malloc(sizeof(char) * BUFFER_SIZE);
-//     printf("please enter the number of users: ");
-//     fflush(stdout); 
-
-//     fgets(buff, BUFFER_SIZE, stdin); 
-//     int numOfPlayers; 
-//     sscanf(buff, "%d", &numOfPlayers);
-
-//     free(buff); 
-//     return numOfPlayers; 
-// }
-// ----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
-
 struct clientDetails* createClient(int connection, char * buff){
     struct clientDetails* p = malloc(sizeof(struct clientDetails));
     p -> connection = connection;
@@ -276,3 +231,48 @@ int main(){
     printf("-----LIFETIME WINS------\n"); 
     readWins(); 
 }
+
+// choose the amount of users that you want for this function 
+//----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
+// int chooseUser () {
+//     char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
+//     printf("do you want to use the default usernames? yes or no: ");
+//     fflush (stdout); 
+
+//     while (1) {
+//     fgets(buff, BUFFER_SIZE, stdin);
+//     buff = strsep(&buff, "\n");
+//     if (strcmp (buff, "yes") == 0 ){
+//         free(buff);
+//         return 1; 
+
+//     }
+//     else if (strcmp (buff, "no") == 0){
+//         free(buff); 
+//         return 2; 
+
+//     }
+//     else {
+//         printf("please write yes or no "); 
+//         fflush(stdout);
+    
+//     }
+
+//     }
+ 
+
+// }
+
+// int numUsers () {
+//     char * buff = malloc(sizeof(char) * BUFFER_SIZE);
+//     printf("please enter the number of users: ");
+//     fflush(stdout); 
+
+//     fgets(buff, BUFFER_SIZE, stdin); 
+//     int numOfPlayers; 
+//     sscanf(buff, "%d", &numOfPlayers);
+
+//     free(buff); 
+//     return numOfPlayers; 
+// }
+// ----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
