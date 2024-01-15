@@ -22,7 +22,8 @@ struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clien
     if(FD_ISSET(connection1, &read_fds)){
         int readBytes = read(connection1, buff, sizeof(buff));
         if(readBytes == 0){
-          return client2;
+          client1 -> guess = -1;
+          return client1;
         }
         printf("%d\n", readBytes);
         sscanf(buff,"%d", &(client1 -> guess));
@@ -32,7 +33,8 @@ struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clien
     if(FD_ISSET(connection2, &read_fds)){
         int readBytes = read(connection2, buff, sizeof(buff));
         if(readBytes == 0){
-          return client1;
+          client2 -> guess = -1;
+          return client2;
         }
         printf("%s\n", buff);
         sscanf(buff,"%d", &(client2 -> guess));
@@ -98,8 +100,26 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   write(client1->connection, msg, BUFFER_SIZE);
   write(client2->connection, msg, BUFFER_SIZE);
   
-  struct clientDetails * firstGuess = retrieveNumber(client1, client2); 
-  struct clientDetails * secondGuess = retrieveNumber(client1, client2); 
+  struct clientDetails * firstGuess = retrieveNumber(client1, client2);
+  struct clientDetails * secondGuess;
+  if(firstGuess -> guess == -1){
+    if(firstGuess -> connection == client1 -> connection){
+      secondGuess = retrieveNumber(client2, client2);
+      return client2;
+    } else if(firstGuess -> connection == client2 -> connection){
+      secondGuess = retrieveNumber(client1, client1);
+      return client1;
+    }
+  } else{
+    secondGuess = retrieveNumber(client1, client2);
+  }
+  if(secondGuess -> guess == -1){
+    if(secondGuess -> connection == client1 -> connection){
+      return client2;
+    } else if(secondGuess -> connection == client2 -> connection){
+      return client1;
+    }
+  }
 
   int guess1 = abs(fileSize - firstGuess->guess); 
   // printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
@@ -124,7 +144,25 @@ struct clientDetails* rockPaperScissors (struct clientDetails* client1, struct c
   write(client2->connection, msg, BUFFER_SIZE);
 
   struct clientDetails * firstGuess = retrieveNumber(client1, client2);
-  struct clientDetails * secondGuess = retrieveNumber(client1, client2);
+  struct clientDetails * secondGuess;
+  if(firstGuess -> guess == -1){
+    if(firstGuess -> connection == client1 -> connection){
+      secondGuess = retrieveNumber(client2, client2);
+      return client2;
+    } else if(firstGuess -> connection == client2 -> connection){
+      secondGuess = retrieveNumber(client1, client1);
+      return client1;
+    }
+  } else{
+    secondGuess = retrieveNumber(client1, client2);
+  }
+  if(secondGuess -> guess == -1){
+    if(secondGuess -> connection == client1 -> connection){
+      return client2;
+    } else if(secondGuess -> connection == client2 -> connection){
+      return client1;
+    }
+  }
 
   int guess1 = firstGuess->guess;
   int guess2 = secondGuess->guess;
