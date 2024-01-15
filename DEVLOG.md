@@ -77,6 +77,9 @@ I hadn't tested randFile so now I have. It works as intended. I also started imp
 2024-01-11 Finished Rock Paper Scissors
 In class, I finished writing the rock paper scissors function. I also edit some things server-side in order to be able to run rock paper scissors, but I didn't finish. Spent 30 minutes. At home, I finished editing the server and started thinking of more games to possibly implement. Spent 20 minutes. Total time: ~50 minutes
 
+2024-01-14 Removed unnecessary code/comments
+I cleaned up some stuff that was unnecessary for the final version, like comments that were just personal notes. I also added more files to the gamefiles directory. Total time: ~30 minutes
+
 Jason Ng:
 
 2024-01-03 11:32 PM Reformatted devlog

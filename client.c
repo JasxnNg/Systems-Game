@@ -42,12 +42,6 @@ int server_handling (int server_socket) {
         buff = strsep(&buff, "\n"); 
         // preprocess the buff
 
-        // maybe add logic here to check whether or not this
-        // part is the right input? 
-        // should we have error checking to be local? 
-
-        // it would be cool to have a help command here! 
-
         //WRITE THE BUFF MESSAGE 
         bytes = write(server_socket, buff, BUFFER_SIZE); 
         checkConnection(bytes, "could not write to the server socket [LINE 62]"); 

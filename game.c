@@ -166,5 +166,3 @@ struct clientDetails* rockPaperScissors (struct clientDetails* client1, struct c
     return NULL;
   }
 }
-
-// fork should handle each game but main server should handle the distribution of code 

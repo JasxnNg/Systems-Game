@@ -17,9 +17,6 @@ void recordWins (char * user, int currentWins) {
     int recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666); // create the file 
     if (recordingFile < 0 )
         perror("could not create the file");
-    // struct writeFile * update = malloc(sizeof(struct writeFile)); 
-    // update->wins = currentWins; 
-    // update->name = user; 
     int i = 0; // this is to keep track of indexing 
     int totalWins = 0; 
     struct writeFile * reader = malloc(sizeof (struct writeFile)); 
@@ -49,7 +46,6 @@ void recordWins (char * user, int currentWins) {
         
     }
     close(recordingFile);
-    // make a struct here 
 
 } 
 
@@ -132,7 +128,6 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
 
         writeBytes = write(client2 -> connection, startingMessage, BUFFER_SIZE);
         serverConnection(writeBytes, "failed to write to the client"); 
-            // reminder need to check writeBytes for == 0 if connection is broken
         
         struct clientDetails* winner = malloc(sizeof(struct clientDetails));
         if (whichGame == 0) {
@@ -177,15 +172,12 @@ int main(){
     sscanf(buff, "%d", &whichGame);
 
     // INIT ALL VARIABLES 
-    // int choose = chooseUser (); 
     int matchStarted = 0;
     int numOfPlayers = 0;
     int playersJoined = 0;
     int maxPlayerCount = 16;
-    //might be able to add a semaphore here  
     pid_t p;
 
-    //malloc the rest 
     int playerConnections[maxPlayerCount];
     struct clientDetails* players[maxPlayerCount];
     int listen_socket = server_setup();
@@ -220,12 +212,10 @@ int main(){
             if (readBytes <= 0) {
                 perror("could not create the connection\n"); 
             }
-            // err(readBytes, "could not create the connection"); 
 
             //CREATE THE CLIENTS WITH USERNAME + SERVER SOCKET
             players[numOfPlayers] = createClient(playerConnections[numOfPlayers], buff);
             
-            //COMMENT THIS OUT AFTERWARD
             printf("%s joined\n", buff ); 
 
             numOfPlayers++; // create the amount of numPlayers needed 
