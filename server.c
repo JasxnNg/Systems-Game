@@ -124,7 +124,7 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
         printf("Sending message to start game\n");
         int writeBytes;
         char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.\0";
-        int connection1 = client1 -> connection;\
+        int connection1 = client1 -> connection;
         int connection2 = client2 -> connection;
         
         writeBytes = write(client1 -> connection, startingMessage, BUFFER_SIZE);
@@ -148,7 +148,6 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
         loseFlag[0] = '0';
         tieFlag[0] = '3';
         if(winner == NULL){
-            printf("They tied!\n");
             write(connection1, tieFlag, BUFFER_SIZE);
             write(connection2, tieFlag, BUFFER_SIZE);
         }
@@ -227,7 +226,6 @@ int main(){
             players[numOfPlayers] = createClient(playerConnections[numOfPlayers], buff);
             
             //COMMENT THIS OUT AFTERWARD
-            printf("%d, %d\n", numOfPlayers, playerConnections[numOfPlayers]); 
             printf("%s joined\n", buff ); 
 
             numOfPlayers++; // create the amount of numPlayers needed 
@@ -242,28 +240,16 @@ int main(){
         int numberOfServers = numOfPlayers / 2;
         int playerPosInArray = 0;
         struct clientDetails* alivePlayers[numOfPlayers];
-        printf("Completed step 1\n");
-        printf("Working on finding alive players\n");
-
         for(int i = 0; i < playersJoined; i++){
-            // THIS FUNCTION DOES NOT WORK PROPERLY  
-            // TESTED BY STOPPING THE PLAYERS 
-            // PLEASE CHECK THIS SOON
-            //FOR SOME REASON THIS IS CHECKED AFTER??? IN LINE 41 
             if(players[i] -> isAlive){
                 printf("Player is still connnected %d\n", playerConnections[i]);
                 alivePlayers[playerPosInArray] = players[i];
                 playerPosInArray++;
             }
-            // we should have logic that handles the server sockets; we should close them if they aren't in use? or at least
-            // remove from the alivePlayers 
         }
-        printf("Completed step 2\n");
         for(int i = 0; i < numberOfServers; i++){
             p = fork();
             if(p == 0){
-                //THE SUBSERVER CAN'T EVEN PRINT HERE 
-                printf("Starting game as the subserver\n");
                 int exiting = client_handling(alivePlayers[2 * i], alivePlayers[2 * i + 1], whichGame); 
                 if(exiting == 0){
                     exit(alivePlayers[2 * i + 1] -> connection);
@@ -279,20 +265,14 @@ int main(){
                 for(int i = 0; i < playersJoined; i++){
                     if(playerConnections[i] == WEXITSTATUS(status)){
                         players[i] -> isAlive = 0;
-                        printf("Unaliving a player\n");
                     }
                 }
-                printf("EXIT STATUS: %d LINE 167\n", WEXITSTATUS(status));
             }
         }
-        printf("%d\n", numOfPlayers - numberOfServers);
         numOfPlayers -= numberOfServers;
-        printf("%d\n", numOfPlayers);
-        sleep(1);
     }
     printf("Game over!\n");
     for(int i = 0; i < playersJoined; i++){
-        printf("in the loop\n");
         if(players[i] -> isAlive){
             printf("The winning player is %s, congratulations %s!\n", players[i] -> identifier, players[i] -> identifier);
             char* winFlag = malloc(BUFFER_SIZE);
@@ -303,16 +283,4 @@ int main(){
     }
     printf("-----LIFETIME WINS------\n"); 
     readWins(); 
-    // for(int i = 0; i < numOfPlayers; i++){
-    //     char startingMessage[BUFFER_SIZE] = "The match is beginning get ready.";
-    //     int writeBytes = write(playerConnections[i], startingMessage, BUFFER_SIZE);
-    //     err(writeBytes, "could not write to client socket"); 
-    //     printf("%d\n", writeBytes);
-    // }        printf("Waiting for round to start\n");
-    // printf("Starting Game\n");
-    // printf("Waiting for first response\n");
-    // struct clientDetails* responder = malloc(sizeof(struct clientDetails));
-    // responder = retrieveNumber(players[0], players[1]);
-    // printf("Guess is %d\n", responder -> connection);
-    // game(players[0], players[1]);
 }
