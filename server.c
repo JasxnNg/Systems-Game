@@ -2,6 +2,34 @@
 #include "game.h"
 #include <sys/select.h> // needed for the retrieve files
 
+int chooseUser () {
+    char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
+    printf("do you want to use the default usernames? yes or no: ");
+    fflush (stdout); 
+
+    while (1) {
+    fgets(buff, BUFFER_SIZE, stdin);
+    buff = strsep(&buff, "\n");
+    if (strcmp (buff, "yes") == 0 ){
+        free(buff);
+        return 1; 
+
+    }
+    else if (strcmp (buff, "no") == 0){
+        free(buff); 
+        return 0; 
+
+    }
+    else {
+        printf("please write yes or no "); 
+        fflush(stdout);
+    
+    }
+
+    }
+ 
+}
+
 void readWins() {
     int recordingFile = open("wins.dat", O_RDONLY); 
     if (recordingFile < 0 )
@@ -102,17 +130,26 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
         if(winner == NULL){
             write(connection1, tieFlag, BUFFER_SIZE);
             write(connection2, tieFlag, BUFFER_SIZE);
+            free(loseFlag); 
+            free(winFlag);
+            free(tieFlag);
         }
         else if(winner -> connection == client1 -> connection){
             write(connection2, loseFlag, BUFFER_SIZE);
             write(connection1, winFlag, BUFFER_SIZE);
             playing = 0;
             free(winner);
+            free(loseFlag); 
+            free(winFlag);
+            free(tieFlag);
             return 0;
         } else if(winner -> connection == client2 -> connection){
             write(connection1, loseFlag, BUFFER_SIZE);
             write(connection2, winFlag, BUFFER_SIZE);
             free(winner);
+            free(loseFlag); 
+            free(winFlag);
+            free(tieFlag);
             playing = 0;
             return 1;
         }
@@ -134,6 +171,7 @@ int main(){
     int playersJoined = 0;
     int maxPlayerCount = 16;
     pid_t p;
+    int users = chooseUser();
 
     int playerConnections[maxPlayerCount];
     struct clientDetails* players[maxPlayerCount];
@@ -163,9 +201,13 @@ int main(){
         if(FD_ISSET(listen_socket, &read_fds)){
 
             playerConnections[numOfPlayers] = server_tcp_handshake(listen_socket);
-
+            // THIS WRITE IS TO CONFIRM THE USERNAME FUNCTIONS
+            int readBytes = write(playerConnections[numOfPlayers], &users, sizeof(int));
+            if (readBytes <= 0) {
+                perror("could not create the connection\n"); 
+            }
             //THIS READ IS TO READ THE USERNAMES 
-            int readBytes = read(playerConnections[numOfPlayers], buff, sizeof(buff));
+            readBytes = read(playerConnections[numOfPlayers], buff, sizeof(buff));
             if (readBytes <= 0) {
                 perror("could not create the connection\n"); 
             }
@@ -234,34 +276,6 @@ int main(){
 
 // choose the amount of users that you want for this function 
 //----------------- ENDED UP NOT USING THESE FUNCTIONS------------------//
-// int chooseUser () {
-//     char * buff = malloc(sizeof (char) * BUFFER_SIZE); 
-//     printf("do you want to use the default usernames? yes or no: ");
-//     fflush (stdout); 
-
-//     while (1) {
-//     fgets(buff, BUFFER_SIZE, stdin);
-//     buff = strsep(&buff, "\n");
-//     if (strcmp (buff, "yes") == 0 ){
-//         free(buff);
-//         return 1; 
-
-//     }
-//     else if (strcmp (buff, "no") == 0){
-//         free(buff); 
-//         return 2; 
-
-//     }
-//     else {
-//         printf("please write yes or no "); 
-//         fflush(stdout);
-    
-//     }
-
-//     }
- 
-
-// }
 
 // int numUsers () {
 //     char * buff = malloc(sizeof(char) * BUFFER_SIZE);

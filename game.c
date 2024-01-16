@@ -94,9 +94,9 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   }
   int fileSize = data.size; 
 
-  printf("real file size: %d [LINE 94 IN GAME.C]", fileSize); 
+  // printf("real file size: %d [LINE 94 IN GAME.C]", fileSize); 
   char * msg = malloc(sizeof (char) * BUFFER_SIZE);
-  sprintf(msg, "%s %s \n", "Guess the size of the following file: ", data.name); 
+  sprintf(msg, "%s %s", "Guess the size of the following file: ", data.name); 
   write(client1->connection, msg, BUFFER_SIZE);
   write(client2->connection, msg, BUFFER_SIZE);
   
@@ -139,7 +139,7 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
 }
 
 struct clientDetails* rockPaperScissors (struct clientDetails* client1, struct clientDetails* client2) { //rename for compiling reasons 
-  char msg[BUFFER_SIZE] = "rock = 0; paper = 1; scissors = 2\n";
+  char msg[BUFFER_SIZE] = "rock = 0; paper = 1; scissors = 2";
   write(client1->connection, msg, BUFFER_SIZE);
   write(client2->connection, msg, BUFFER_SIZE);
 

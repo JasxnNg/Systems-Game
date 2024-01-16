@@ -72,29 +72,37 @@ int main (int argc, char *argv[]) {
     {
         IP = argv[1];
     }
+    
+    int server_socket = client_tcp_handshake(IP);
+    int chooseUser; 
+    int bytes = read(server_socket, &chooseUser, sizeof(int));
+    err(bytes, "could not read from the server socket");
 
-
-    // this is for getting your user  
     char * userName = malloc(sizeof (char) * NAME_SIZE); 
-    uid_t uid = geteuid(); 
-    struct passwd *pw = getpwuid(uid);
-    if (pw) {
-        strcpy (userName, pw->pw_name); 
+    // THIS IS FOR THE USERNAME
+    if (chooseUser) {
+        uid_t uid = geteuid(); 
+        struct passwd *pw = getpwuid(uid);
+        if (pw) {
+            strcpy (userName, pw->pw_name); 
+        }
+        else {
+            printf("could not retrieve username\n"); 
+            exit(1); 
+        }
     }
+
+
     else { // if we can't retrieve a username for this 
         printf("enter a username: "); 
-        if (fgets(userName, NAME_SIZE, stdin)) {
-            printf("failed to fgets");
-            exit(1);  
-        } 
+        fgets(userName, NAME_SIZE, stdin);
+        userName = strsep(&userName, "\n"); // process the string 
         
     }  
-
-    int server_socket = client_tcp_handshake(IP);
     printf("user: %s joined server successfully!\n", userName);
 
     // WRITE THE USER TO THE SERVER 
-    int bytes = write(server_socket, userName, NAME_SIZE);  
+    bytes = write(server_socket, userName, NAME_SIZE);  
     err(bytes, "could not write the bytes to the server socket"); 
     // add logic for everything here 
     server_handling (server_socket); 
