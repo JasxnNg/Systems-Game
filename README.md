@@ -21,7 +21,7 @@ One user hosts the program (in this case, it needs to be on homer [because of th
 After the server starts the game, the clients are prompte for an input. If they lose, they will see a message saying they lost. 
 
 ### Possible bugs and features 
-```c 
+```
 
 
 ```
