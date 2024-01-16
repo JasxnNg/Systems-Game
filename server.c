@@ -31,6 +31,56 @@ int chooseUser () {
  
 }
 
+void recordWins (char * user, int currentWins) {
+    int recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666); // create the file 
+    if (recordingFile < 0 )
+        perror("could not create the file");
+    int i = 0; // this is to keep track of indexing 
+    int totalWins = 0; 
+    struct writeFile * reader = malloc(sizeof (struct writeFile)); 
+    while (read(recordingFile, reader, sizeof(struct writeFile))) {
+        if (strcmp(reader->name, user) == 0){
+            totalWins = currentWins + reader->wins; 
+            break; 
+        }
+        i++; 
+    }
+    close(recordingFile); 
+    int bytes = recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666);
+    err(bytes, "failed to read"); 
+    lseek(recordingFile, sizeof(struct writeFile) * i, 0); 
+
+    if (totalWins != 0 ) {
+        strcpy (reader->name, user); 
+        reader->wins = totalWins; 
+        write(recordingFile, reader, sizeof(struct writeFile)); 
+
+        
+    }
+    else {
+        strcpy (reader->name, user); 
+        reader->wins = currentWins; 
+        write(recordingFile, reader, sizeof(struct writeFile)); 
+        
+    }
+    close(recordingFile);
+
+} 
+
+
+void readWins() {
+    int recordingFile = open("wins.dat", O_RDONLY); 
+    if (recordingFile < 0 ) {
+        perror("could not create the file");
+        exit(1); 
+    }
+    struct writeFile * reader = malloc(sizeof (struct writeFile)); 
+    while (read(recordingFile, reader, sizeof(struct writeFile))) {
+        printf("name: %s wins: %d\n", reader->name, reader->wins); 
+    }
+    close(recordingFile); 
+}
+
 
 void serverConnection (int i, char * message) {
     if (i == 0) {
@@ -128,12 +178,12 @@ int main(){
     pid_t p;
     int users = chooseUser();
 
-    int playerConnections[maxPlayerCount];
-    struct clientDetails* players[maxPlayerCount];
+    int playerConnections[MAXPLAYERCOUNT];
+    struct clientDetails* players[MAXPLAYERCOUNT];
     int listen_socket = server_setup();
 
     // THIS LOOP IS TO GET OBTAIN PLAYERS 
-    while(!matchStarted && numOfPlayers < maxPlayerCount){
+    while(!matchStarted && numOfPlayers < MAXPLAYERCOUNT){
         fd_set read_fds;
         char buff[BUFFER_SIZE];
         printf("The current number of players is %d\n", numOfPlayers);

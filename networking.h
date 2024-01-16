@@ -18,6 +18,7 @@
 #define PORT "19234"
 #define BUFFER_SIZE 1024
 #define NAME_SIZE 128
+#define MAXPLAYERCOUNT 16
 void err(int i, char*message);
 int server_setup();
 int client_tcp_handshake(char*server_address);
