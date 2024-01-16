@@ -27,6 +27,12 @@ Our program
 - takes in usernames 
     - please note that you cannot connect to the server until the person who is running the server has selected the game and whether or not the default usernames 
 - works with ties
-- dynamically works 
+- dynamically matches users to each other MAX OF 16 USERS
+- manages with disconnections 
+- only keeps track of wins (so the .dat file does not store whether or not you only have 0 wins)
+
+Known bugs (features?): 
+- leaderboard cannot differentiate between two users who have the same name 
+- need to input what the program prompts you for (sometimes the program will break if you put in a "start" instead of a 0) 
 
 ```

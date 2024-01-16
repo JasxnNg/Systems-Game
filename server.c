@@ -32,8 +32,9 @@ int chooseUser () {
 
 void recordWins (char * user, int currentWins) {
     int recordingFile = open("wins.dat", O_RDWR | O_CREAT, 0666); // create the file 
-    if (recordingFile < 0 )
-        perror("could not create the file");
+    int currentGame = open("currentGame.dat", O_RDWR | O_CREAT, 0666); 
+    err(currentGame, "failed to create currentGame.dat");
+    err(recordingFile, "failed to create recording file");
     int i = 0; // this is to keep track of indexing 
     int totalWins = 0; 
     struct writeFile * reader = malloc(sizeof (struct writeFile)); 
@@ -64,6 +65,35 @@ void recordWins (char * user, int currentWins) {
     }
     close(recordingFile);
 
+    i = 0; // this is to keep track of indexing 
+    totalWins = 0; 
+    while (read(currentGame, reader, sizeof(struct writeFile))) {
+        if (strcmp(reader->name, user) == 0){
+            totalWins = currentWins + reader->wins; 
+            break; 
+        }
+        i++; 
+    }
+    close(currentGame); 
+    bytes = currentGame = open("currentGame.dat", O_RDWR | O_CREAT, 0666);
+    err(bytes, "failed to read"); 
+    lseek(currentGame, sizeof(struct writeFile) * i, 0); 
+
+    if (totalWins != 0 ) {
+        strcpy (reader->name, user); 
+        reader->wins = totalWins; 
+        write(currentGame, reader, sizeof(struct writeFile)); 
+
+        
+    }
+    else {
+        strcpy (reader->name, user); 
+        reader->wins = currentWins; 
+        write(currentGame, reader, sizeof(struct writeFile)); 
+        
+    }
+    close(currentGame);
+
 } 
 
 
@@ -78,6 +108,20 @@ void readWins() {
         printf("name: %s wins: %d\n", reader->name, reader->wins); 
     }
     close(recordingFile); 
+}
+
+void currentGame() {
+    int recordingFile = open("currentGame.dat", O_RDONLY); 
+    if (recordingFile < 0 ) {
+        perror("could not create the file");
+        exit(1); 
+    }
+    struct writeFile * reader = malloc(sizeof (struct writeFile)); 
+    while (read(recordingFile, reader, sizeof(struct writeFile))) {
+        printf("name: %s wins: %d\n", reader->name, reader->wins); 
+    }
+    close(recordingFile);
+    remove("currentGame.dat");
 }
 
 
@@ -281,6 +325,8 @@ int main( int argc, char* argv[]){
     }
     printf("-----LIFETIME WINS------\n"); 
     readWins(); 
+    printf("-----CURRENT GAME WINS------\n");
+    currentGame();
 }
 
 // choose the amount of users that you want for this function 

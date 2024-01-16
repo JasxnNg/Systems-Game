@@ -13,7 +13,9 @@ client: cli
 	@./cli 
 
 server: ser
+	@rm -f currentGame.dat
 	@./ser
+	
 
 show: ser
 	@./ser show

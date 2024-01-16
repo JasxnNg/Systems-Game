@@ -129,5 +129,6 @@ Update makefile to remove the dat file + add update to dat file + update ReadMe.
 Commented out excess statements; ended up not using chooseUser() and numUser() ~10 minutes
 
 2024-01-15 9:35 Added functionality for usernames 
-Chose to use chooseUser() at the last moment; added functionality for that; cleaned up some more code; added a new file called "wins.c" to contain some excess functions that we used (related to handling winning); new make win to show all time leaderboards! ~40 minutes
+Chose to use chooseUser() at the last moment; added functionality for that; cleaned up some more code; added a new file called "wins.c" to contain some excess functions that we used (related to handling winning) and then deleted because it did not work; new make show to show all time leaderboards! ~1 hr 15 
+
 ```
