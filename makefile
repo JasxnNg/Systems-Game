@@ -15,8 +15,8 @@ client: cli
 server: ser
 	@./ser
 
-show: winning
-	@./winning
+show: ser
+	@./ser show
 
 networking.o: networking.c networking.h 
 	@gcc -c networking.c 
@@ -26,7 +26,6 @@ server.o: server.c
 
 game.o: game.c 
 	@gcc -c game.c  
-
 
 clean: 
 	@rm -f wins.dat

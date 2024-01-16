@@ -1,6 +1,5 @@
 #include "networking.h"
 #include "game.h"
-#include "wins.h"
 #include <sys/select.h> // needed for the retrieve files
 
 int chooseUser () {
@@ -163,7 +162,13 @@ int client_handling (struct clientDetails* client1, struct clientDetails* client
 
 // AUTOMATICALLY GIVE THE WIN IF SOMEONE LOSES CONNECTION
 
-int main(){
+int main( int argc, char* argv[]){
+    if (argc > 1) {
+        if (strcmp(argv[1], "show") == 0) {
+            readWins();
+            exit(0); 
+        }
+    }
     printf("Which game would you like to play? Enter 0 for file size guessing game or 1 for rock paper scissors: ");
     char buff[BUFFER_SIZE];
     fgets(buff, BUFFER_SIZE, stdin);
@@ -174,7 +179,6 @@ int main(){
     int matchStarted = 0;
     int numOfPlayers = 0;
     int playersJoined = 0;
-    int maxPlayerCount = 16;
     pid_t p;
     int users = chooseUser();
 

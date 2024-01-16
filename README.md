@@ -22,6 +22,11 @@ After the server starts the game, the clients are prompte for an input. If they 
 
 ### Possible bugs and features 
 ```
-
+Our program 
+- keeps track of lifetime wins
+- takes in usernames 
+    - please note that you cannot connect to the server until the person who is running the server has selected the game and whether or not the default usernames 
+- works with ties
+- dynamically works 
 
 ```
