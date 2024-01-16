@@ -33,6 +33,8 @@ Our program
 
 Known bugs (features?): 
 - leaderboard cannot differentiate between two users who have the same name 
-- need to input what the program prompts you for (sometimes the program will break if you put in a "start" instead of a 0) 
+- need to input what the program prompts you for (sometimes the program will break if you put in a "123" instead of a "1") 
+    
+
 
 ```
