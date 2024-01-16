@@ -57,6 +57,12 @@ I changed out the isPlaying function for a attributes in the clientDetails to ma
 2024-01-12 Fixed problem with players tying and the server breaking
 I fixed a problem where if the players tied, the game broke and fixed it but could not fix the problem with the winner losing connection although I identified it as the strcmp if statement not working for some reason. ~1 hour
 
+2024-01-14 Removed unneccesary code
+I spent some time removing some code that just printed text messages. ~15 minutes
+
+2024-01-15 Fixed an error with players leaving
+I fixed a small bug where the server crashed when a player left by modifying game to handle quits by the player. ~30 minutes
+
 Aareeb Jamil:
 
 2024-01-04 Edited proposal and brainstormed
