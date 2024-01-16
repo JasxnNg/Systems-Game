@@ -29,3 +29,6 @@ clean:
 	@rm -f ser
 	@rm -f cli 
 	@rm -f *.o 
+
+homer: cli 
+	@./cli homer.stuy.edu

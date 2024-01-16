@@ -25,9 +25,9 @@ struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clien
           client1 -> guess = -1;
           return client1;
         }
-        printf("%d\n", readBytes);
+        // printf("%d\n", readBytes);
         sscanf(buff,"%d", &(client1 -> guess));
-        printf("%d\n", client1 -> guess);
+        printf("%s guessed %d\n", client1->identifier,  client1 -> guess);
         return client1;
     }
     if(FD_ISSET(connection2, &read_fds)){
@@ -36,8 +36,8 @@ struct clientDetails* retrieveNumber(struct clientDetails* client1, struct clien
           client2 -> guess = -1;
           return client2;
         }
-        printf("%s\n", buff);
         sscanf(buff,"%d", &(client2 -> guess));
+        printf("%s guessed %d\n", client2->identifier,  client2 -> guess);
         return client2;
     }
 }
@@ -125,7 +125,7 @@ struct clientDetails* game(struct clientDetails* client1, struct clientDetails* 
   // printf("GUESS1 FILE TABLE: %d; GUESS1: %d\n", client1->connection, guess1); 
   int guess2 = abs(fileSize - secondGuess->guess); 
   // printf("GUESS2 FILE TABLE: %d; GUESS2 %d\n", client2->connection, guess2); 
-
+  printf("the answer was: %d\n", fileSize); 
   free(msg); 
   
   if (guess1  < guess2) {
